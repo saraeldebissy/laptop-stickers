@@ -4,32 +4,29 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  padding: 32px 32px 28px;
+  padding: 80px 32px 28px;
 }
 
-/* ─── Bottom bar: sticker panel + actions side by side ── */
+/* ─── Bottom bar: sticker panel full width ── */
 .bottom-bar {
-  display: flex;
-  flex-direction: row;
-  gap: 14px;
-  align-items: flex-start;
   width: 720px;
 }
 
 /* ─── Sticker Panel — wrapping grid, shows all stickers ── */
 .sticker-panel {
   flex: 1;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(5, 10, 30, 0.65);
+  border: 1px solid rgba(50, 100, 255, 0.18);
   border-radius: 12px;
   padding: 12px 14px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  backdrop-filter: blur(12px);
 }
 
 .panel-label {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(100, 150, 255, 0.45);
   font-size: 9px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -44,8 +41,8 @@
 }
 
 .sticker-thumb {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px dashed rgba(255, 255, 255, 0.15);
+  background: rgba(20, 40, 110, 0.18);
+  border: 1px dashed rgba(60, 120, 255, 0.22);
   border-radius: 8px;
   width: 58px;
   height: 58px;
@@ -59,8 +56,8 @@
 }
 
 .sticker-thumb:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(30, 60, 180, 0.28);
+  border-color: rgba(80, 140, 255, 0.45);
 }
 
 .sticker-thumb:active {
@@ -94,15 +91,15 @@
 /* Realistic MacBook lid — 720×450 matches 16:10 lid ratio */
 .macbook-lid {
   background: linear-gradient(150deg, #d4d4d4 0%, #aaaaaa 30%, #b2b2b2 60%, #cacaca 100%);
-  border-radius: 20px 20px 5px 5px;
+  border-radius: 28px;
   height: 450px;
   border: 1.5px solid rgba(255, 255, 255, 0.35);
   box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.45),
-    0 60px 120px rgba(0, 0, 0, 0.95),
-    0 30px 60px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(0, 0, 0, 0.28),
+    0 40px 80px rgba(10, 25, 80, 0.7),
+    0 16px 36px rgba(15, 35, 110, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.6),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   position: relative;
   overflow: hidden;
   cursor: crosshair;
@@ -127,8 +124,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 38px;
-  height: 47px;
+  width: 72px;
+  height: 94px;
   fill: rgba(80, 80, 80, 0.38);
   z-index: 0;
   pointer-events: none;
@@ -137,21 +134,21 @@
 }
 
 .macbook-hinge {
-  height: 8px;
-  background: linear-gradient(180deg, #8c8c8c, #6e6e6e);
-  border-radius: 0 0 5px 5px;
-  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.75);
+  height: 18px;
+  background: linear-gradient(180deg, #8c8c8c, #5a5a5a);
+  border-radius: 0;
+  box-shadow: 0 4px 16px rgba(20, 30, 70, 0.3);
 }
 
-/* Soft glow pooling beneath the laptop */
+/* Electric bloom pooling beneath the laptop */
 .macbook-glow {
   position: absolute;
-  bottom: -24px;
-  left: 8%;
-  right: 8%;
+  bottom: -20px;
+  left: 5%;
+  right: 5%;
   height: 24px;
-  background: rgba(255, 255, 255, 0.07);
-  filter: blur(28px);
+  background: rgba(30, 80, 255, 0.4);
+  filter: blur(32px);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -209,62 +206,89 @@
   }
 }
 
-/* Remove: corners lift, spins off */
+/* Remove: peel from left edge — collapses rightward like real sticker */
 .sticker-inner.peeling {
-  animation: stickerPeel 0.28s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+  transform-origin: right center;
+  animation: stickerPeel 0.42s cubic-bezier(0.4, 0, 1, 0.6) forwards;
 }
 
 @keyframes stickerPeel {
   0% {
-    transform: scale(1) rotate(var(--rot));
+    transform: rotate(var(--rot)) scale(1);
     opacity: 1;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.45));
   }
-  25% {
-    transform: scale(1.14) rotate(calc(var(--rot) + 12deg));
-    opacity: 0.85;
+  18% {
+    /* corner lifts — slight scale up + shift left as edge releases */
+    transform: rotate(var(--rot)) scale(1.08) translateX(-6px);
+    opacity: 1;
+    filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.7));
   }
   100% {
-    transform: scale(0) rotate(calc(var(--rot) + 50deg));
+    /* collapses toward right anchor, slides left off screen */
+    transform: rotate(calc(var(--rot) - 10deg)) scaleX(0.04) scaleY(0.75) translateX(-55px);
     opacity: 0;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   }
 }
 
-/* ─── Actions Panel ──────────────────────────── */
+/* ─── Actions Panel — fixed to right edge ──── */
 .actions {
-  flex-shrink: 0;
-  width: 88px;
+  position: fixed;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: center;
-  padding-top: 4px;
+  width: 88px;
+  z-index: 10;
 }
 
 .action-btn {
   width: 100%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.5);
+  background: rgba(5, 10, 30, 0.65);
+  border: 1px solid rgba(50, 100, 255, 0.18);
+  color: rgba(130, 175, 255, 0.65);
   border-radius: 8px;
   padding: 10px 6px;
   font-size: 9px;
   font-family: monospace;
   letter-spacing: 0.05em;
   cursor: pointer;
+  backdrop-filter: blur(8px);
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .action-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.8);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(15, 30, 80, 0.8);
+  color: rgba(180, 210, 255, 0.95);
+  border-color: rgba(80, 140, 255, 0.4);
 }
 
 .auto-save-hint {
-  color: rgba(255, 255, 255, 0.15);
+  color: rgba(80, 120, 255, 0.3);
   font-size: 8px;
   text-align: center;
   line-height: 1.5;
   margin-top: 4px;
   font-family: monospace;
+}
+
+/* ─── Desk surface — vivid cobalt stage ──────── */
+.desk-surface {
+  width: min(100vw - 48px, 1300px);
+  height: 64px;
+  margin-top: -2px; /* close flush against the hinge */
+  background: linear-gradient(to bottom,
+    #3366ff 0%,
+    #1a44ee 45%,
+    #0d2ecc 100%
+  );
+  border-radius: 0 0 20px 20px;
+  box-shadow:
+    inset 0 2px 0 rgba(160, 200, 255, 0.98),
+    0 0 90px rgba(40, 100, 255, 0.65),
+    0 28px 70px rgba(10, 25, 100, 0.5);
 }

@@ -4,13 +4,71 @@
   padding: 0;
 }
 
+html {
+  background: #000000;
+}
+
 body {
-  background: #0a0a0a;
+  background: transparent;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  color: #fff;
+  color: rgba(200, 220, 255, 0.9);
   overflow: hidden;
+}
+
+/* ─── Pure black stage background ────────────── */
+#aurora {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg,
+    #000000 0%,
+    #020408 50%,
+    #050d20 80%,
+    #0a1535 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Giant decorative text — like "Pro" in the reference */
+#aurora::before {
+  content: 'STICKERS';
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 185px;
+  font-weight: 900;
+  color: rgba(15, 50, 180, 0.28);
+  letter-spacing: -0.02em;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Horizon glow — concentrated at the desk surface level */
+#aurora::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 380px;
+  background: radial-gradient(
+    ellipse at center bottom,
+    rgba(35, 90, 255, 0.5) 0%,
+    rgba(15, 55, 200, 0.22) 38%,
+    transparent 68%
+  );
+  pointer-events: none;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
 }

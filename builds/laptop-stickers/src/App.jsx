@@ -28,8 +28,8 @@ export default function App() {
       />
       <div className="bottom-bar">
         <StickerPanel />
-        <Actions onClear={clearAll} containerRef={macbookRef} />
       </div>
+      <Actions onClear={clearAll} containerRef={macbookRef} />
     </div>
   )
 }
