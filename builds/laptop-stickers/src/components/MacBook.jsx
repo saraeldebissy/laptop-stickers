@@ -53,9 +53,7 @@ export function MacBook({ stickers, onAdd, onRemove, onRemoveStart, onMove, cont
           ))}
         </div>
         <div className="macbook-hinge" />
-        <div className="macbook-glow" />
       </div>
-      <div className="desk-surface" />
     </div>
   )
 }
