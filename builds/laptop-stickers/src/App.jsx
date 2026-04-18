@@ -18,18 +18,18 @@ export default function App() {
 
   return (
     <div className="app">
-      <div className="center-column">
-        <MacBook
-          stickers={stickers}
-          onAdd={handleAdd}
-          onRemove={removeSticker}
-          onRemoveStart={playRemove}
-          onMove={moveSticker}
-          containerRef={macbookRef}
-        />
+      <MacBook
+        stickers={stickers}
+        onAdd={handleAdd}
+        onRemove={removeSticker}
+        onRemoveStart={playRemove}
+        onMove={moveSticker}
+        containerRef={macbookRef}
+      />
+      <div className="bottom-bar">
         <StickerPanel />
+        <Actions onClear={clearAll} containerRef={macbookRef} />
       </div>
-      <Actions onClear={clearAll} containerRef={macbookRef} />
     </div>
   )
 }

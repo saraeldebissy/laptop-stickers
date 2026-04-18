@@ -15,10 +15,10 @@ export function MacBook({ stickers, onAdd, onRemove, onRemoveStart, onMove, cont
     if (!src || !lidRef.current) return
 
     const rect = lidRef.current.getBoundingClientRect()
-    const rawX = e.clientX - rect.left - 32
-    const rawY = e.clientY - rect.top - 32
-    const x = Math.max(0, Math.min(rawX, rect.width - 64))
-    const y = Math.max(0, Math.min(rawY, rect.height - 64))
+    const rawX = e.clientX - rect.left - 45
+    const rawY = e.clientY - rect.top - 45
+    const x = Math.max(0, Math.min(rawX, rect.width - 90))
+    const y = Math.max(0, Math.min(rawY, rect.height - 90))
 
     onAdd(src, x, y)
   }
