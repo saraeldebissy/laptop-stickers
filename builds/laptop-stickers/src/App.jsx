@@ -16,21 +16,19 @@ export default function App() {
     playAdd()
   }
 
-  const handleRemove = (id) => {
-    removeSticker(id)
-    playRemove()
-  }
-
   return (
     <div className="app">
-      <StickerPanel />
-      <MacBook
-        stickers={stickers}
-        onAdd={handleAdd}
-        onRemove={handleRemove}
-        onMove={moveSticker}
-        containerRef={macbookRef}
-      />
+      <div className="center-column">
+        <MacBook
+          stickers={stickers}
+          onAdd={handleAdd}
+          onRemove={removeSticker}
+          onRemoveStart={playRemove}
+          onMove={moveSticker}
+          containerRef={macbookRef}
+        />
+        <StickerPanel />
+      </div>
       <Actions onClear={clearAll} containerRef={macbookRef} />
     </div>
   )

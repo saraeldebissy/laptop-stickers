@@ -2,30 +2,88 @@ export function useSound() {
   const play = (type) => {
     try {
       const ctx = new (window.AudioContext || window.webkitAudioContext)()
-      const osc = ctx.createOscillator()
-      const gain = ctx.createGain()
-
-      osc.connect(gain)
-      gain.connect(ctx.destination)
-      gain.gain.setValueAtTime(0.3, ctx.currentTime)
 
       if (type === 'add') {
-        osc.type = 'sine'
-        osc.frequency.setValueAtTime(800, ctx.currentTime)
-        osc.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.12)
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12)
-        osc.start(ctx.currentTime)
-        osc.stop(ctx.currentTime + 0.12)
+        // Sticker slap: bandpass-filtered white noise burst + low thud
+        const bufLen = Math.floor(ctx.sampleRate * 0.09)
+        const buf = ctx.createBuffer(1, bufLen, ctx.sampleRate)
+        const data = buf.getChannelData(0)
+        for (let i = 0; i < bufLen; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufLen * 0.25))
+        }
+        const noise = ctx.createBufferSource()
+        noise.buffer = buf
+
+        const bp = ctx.createBiquadFilter()
+        bp.type = 'bandpass'
+        bp.frequency.value = 1400
+        bp.Q.value = 1.8
+
+        const noiseGain = ctx.createGain()
+        noiseGain.gain.setValueAtTime(0.6, ctx.currentTime)
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.09)
+
+        noise.connect(bp)
+        bp.connect(noiseGain)
+        noiseGain.connect(ctx.destination)
+        noise.start(ctx.currentTime)
+
+        // Low thud underneath
+        const thud = ctx.createOscillator()
+        const thudGain = ctx.createGain()
+        thud.type = 'sine'
+        thud.frequency.setValueAtTime(110, ctx.currentTime)
+        thud.frequency.exponentialRampToValueAtTime(55, ctx.currentTime + 0.07)
+        thudGain.gain.setValueAtTime(0.35, ctx.currentTime)
+        thudGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.07)
+        thud.connect(thudGain)
+        thudGain.connect(ctx.destination)
+        thud.start(ctx.currentTime)
+        thud.stop(ctx.currentTime + 0.07)
+
       } else {
-        osc.type = 'triangle'
-        osc.frequency.setValueAtTime(400, ctx.currentTime)
-        osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.08)
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08)
-        osc.start(ctx.currentTime)
-        osc.stop(ctx.currentTime + 0.08)
+        // Sticker peel: highpass-swept noise (rising "zzt") + release pop
+        const bufLen = Math.floor(ctx.sampleRate * 0.18)
+        const buf = ctx.createBuffer(1, bufLen, ctx.sampleRate)
+        const data = buf.getChannelData(0)
+        for (let i = 0; i < bufLen; i++) {
+          const t = i / bufLen
+          // ramp up then fade — like tape slowly lifting then snapping off
+          data[i] = (Math.random() * 2 - 1) * Math.min(t * 4, 1) * (1 - t * 0.6)
+        }
+        const noise = ctx.createBufferSource()
+        noise.buffer = buf
+
+        const hp = ctx.createBiquadFilter()
+        hp.type = 'highpass'
+        hp.frequency.setValueAtTime(200, ctx.currentTime)
+        hp.frequency.exponentialRampToValueAtTime(4000, ctx.currentTime + 0.15)
+
+        const noiseGain = ctx.createGain()
+        noiseGain.gain.setValueAtTime(0.28, ctx.currentTime)
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18)
+
+        noise.connect(hp)
+        hp.connect(noiseGain)
+        noiseGain.connect(ctx.destination)
+        noise.start(ctx.currentTime)
+
+        // Release pop at the end (sticker snaps free)
+        const pop = ctx.createOscillator()
+        const popGain = ctx.createGain()
+        pop.type = 'sine'
+        pop.frequency.setValueAtTime(280, ctx.currentTime + 0.12)
+        pop.frequency.exponentialRampToValueAtTime(90, ctx.currentTime + 0.18)
+        popGain.gain.setValueAtTime(0, ctx.currentTime)
+        popGain.gain.setValueAtTime(0.18, ctx.currentTime + 0.12)
+        popGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18)
+        pop.connect(popGain)
+        popGain.connect(ctx.destination)
+        pop.start(ctx.currentTime + 0.12)
+        pop.stop(ctx.currentTime + 0.18)
       }
     } catch {
-      // AudioContext unavailable (e.g. test environment) — fail silently
+      // AudioContext unavailable — fail silently
     }
   }
 
