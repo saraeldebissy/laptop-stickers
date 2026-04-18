@@ -48,8 +48,10 @@ export function useLayout() {
   }
 
   const clearAll = () => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify([]))
-    setStickers([])
+    setStickers(() => {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([]))
+      return []
+    })
   }
 
   return { stickers, addSticker, removeSticker, moveSticker, clearAll }

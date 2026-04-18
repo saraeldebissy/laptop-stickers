@@ -11,7 +11,11 @@ const localStorageMock = (() => {
   }
 })()
 
-Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+Object.defineProperty(window, 'localStorage', {
+  value: localStorageMock,
+  configurable: true,
+  writable: true,
+})
 
 describe('useLayout', () => {
   beforeEach(() => localStorageMock.clear())
