@@ -1,10 +1,15 @@
+import { useState } from 'react'
 import html2canvas from 'html2canvas'
 
-export function Actions({ onClear, containerRef }) {
+export function Actions({ onClear, containerRef, onShutter }) {
+  const [flashing, setFlashing] = useState(false)
+
   const handleScreenshot = async () => {
     if (!containerRef.current) return
+    onShutter?.()
+    setFlashing(true)
     const canvas = await html2canvas(containerRef.current, {
-      backgroundColor: '#0a0a0a',
+      backgroundColor: null,
       scale: window.devicePixelRatio,
       useCORS: true,
     })
@@ -15,10 +20,26 @@ export function Actions({ onClear, containerRef }) {
   }
 
   return (
-    <div className="actions">
-      <button className="action-btn" onClick={onClear}>Clear All</button>
-      <button className="action-btn" onClick={handleScreenshot}>Screenshot</button>
-      <div className="auto-save-hint">auto-saved<br />to browser</div>
-    </div>
+    <>
+      {flashing && (
+        <div
+          className="screenshot-flash"
+          onAnimationEnd={() => setFlashing(false)}
+        />
+      )}
+      <div className="actions">
+        <button className="chip" onClick={handleScreenshot} title="Save screenshot">
+          <span className="chip-emoji">📷</span>
+        </button>
+        <button className="chip" onClick={onClear} title="Clear all stickers">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <polyline points="3 6 5 6 21 6" />
+            <path d="M19 6l-1 14H6L5 6" />
+            <path d="M10 11v6M14 11v6" />
+            <path d="M9 6V4h6v2" />
+          </svg>
+        </button>
+      </div>
+    </>
   )
 }

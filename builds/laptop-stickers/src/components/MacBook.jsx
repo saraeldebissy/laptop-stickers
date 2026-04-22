@@ -32,8 +32,8 @@ export function MacBook({ stickers, onAdd, onRemove, onRemoveStart, onMove, cont
           onDragOver={handleDragOver}
           onDrop={handleDrop}
         >
-          <div className="lid-texture" />
-          {/* Real Apple logo SVG */}
+          <div className="lid-specular" />
+          <div className="lid-edge" />
           <svg
             className="apple-logo"
             viewBox="0 0 384 512"

@@ -5,7 +5,7 @@
 }
 
 html {
-  background: #000000;
+  background: #eef0f8;
 }
 
 body {
@@ -15,41 +15,90 @@ body {
   align-items: center;
   justify-content: center;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  color: rgba(200, 220, 255, 0.9);
+  color: rgba(60, 70, 110, 0.8);
   overflow: hidden;
 }
 
-/* ─── Two-zone gradient background ───────────── */
-/* Upper: near-black cold dark. Lower: richer deep navy. */
+/* ─── Light glass background ──────────────────── */
 #aurora {
   position: fixed;
   inset: 0;
-  background: linear-gradient(180deg,
-    #000000 0%,
-    #000308 25%,
-    #030820 52%,
-    #071535 72%,
-    #0c1d48 100%
+  background: linear-gradient(155deg,
+    #f0f2fa 0%,
+    #e8ecf8 25%,
+    #ebe5f8 55%,
+    #e2eaf8 80%,
+    #edf0fb 100%
   );
   pointer-events: none;
   z-index: 0;
 }
 
-/* Soft ambient glow at center — no hard horizon strip */
-#aurora::after {
-  content: '';
+/* ─── Diffused color blobs ─────────────────────── */
+.blob {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 1100px;
-  height: 550px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(20, 55, 180, 0.18) 0%,
-    transparent 65%
-  );
+  border-radius: 50%;
+  filter: blur(72px);
   pointer-events: none;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.blob-1 {
+  width: 520px;
+  height: 520px;
+  top: -140px;
+  left: -100px;
+  background: rgba(160, 180, 255, 0.28);
+  animation: blobDrift1 38s ease-in-out infinite alternate;
+}
+
+.blob-2 {
+  width: 440px;
+  height: 440px;
+  bottom: -100px;
+  right: -80px;
+  background: rgba(210, 150, 255, 0.2);
+  animation: blobDrift2 44s ease-in-out infinite alternate;
+}
+
+.blob-3 {
+  width: 360px;
+  height: 360px;
+  top: 100px;
+  right: 80px;
+  background: rgba(140, 220, 255, 0.16);
+  animation: blobDrift3 52s ease-in-out infinite alternate;
+}
+
+.blob-4 {
+  width: 280px;
+  height: 280px;
+  bottom: 160px;
+  left: 100px;
+  background: rgba(255, 180, 200, 0.13);
+  animation: blobDrift4 35s ease-in-out infinite alternate;
+}
+
+@keyframes blobDrift1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, 60px) scale(1.08); }
+}
+
+@keyframes blobDrift2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-50px, -40px) scale(1.06); }
+}
+
+@keyframes blobDrift3 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-30px, 50px) scale(0.94); }
+}
+
+@keyframes blobDrift4 {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(60px, -30px) scale(1.1); }
 }
 
 #root {

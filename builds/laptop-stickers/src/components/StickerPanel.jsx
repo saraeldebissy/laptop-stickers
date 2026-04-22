@@ -1,5 +1,5 @@
-// STICKER_SRCS is at module scope — import.meta.glob is evaluated at build time,
-// no need to re-run it on every render.
+import { useRef, useEffect } from 'react'
+
 const stickerModules = import.meta.glob('../stickers/*', {
   eager: true,
   query: '?url',
@@ -9,6 +9,21 @@ const stickerModules = import.meta.glob('../stickers/*', {
 const STICKER_SRCS = Object.values(stickerModules)
 
 export function StickerPanel() {
+  const pillRef = useRef(null)
+
+  useEffect(() => {
+    const el = pillRef.current
+    if (!el) return
+    // Teaser sweep: wait, drift right to show range, drift back
+    const t1 = setTimeout(() => {
+      el.scrollTo({ left: el.scrollWidth, behavior: 'smooth' })
+    }, 900)
+    const t2 = setTimeout(() => {
+      el.scrollTo({ left: 0, behavior: 'smooth' })
+    }, 2200)
+    return () => { clearTimeout(t1); clearTimeout(t2) }
+  }, [])
+
   const handleDragStart = (e, src) => {
     e.dataTransfer.setData('sticker-src', src)
     e.dataTransfer.effectAllowed = 'copy'
@@ -16,8 +31,7 @@ export function StickerPanel() {
 
   return (
     <div className="sticker-panel">
-      <div className="panel-label">Your Stickers</div>
-      <div className="sticker-grid">
+      <div className="pill-inner" ref={pillRef}>
         {STICKER_SRCS.map((src) => (
           <div
             key={src}
@@ -28,9 +42,6 @@ export function StickerPanel() {
             <img src={src} alt="" draggable={false} />
           </div>
         ))}
-      </div>
-      <div className="panel-hint">
-        drag stickers<br />onto your laptop
       </div>
     </div>
   )

@@ -8,7 +8,7 @@ import './App.css'
 
 export default function App() {
   const { stickers, addSticker, removeSticker, moveSticker, clearAll } = useLayout()
-  const { playAdd, playRemove } = useSound()
+  const { playAdd, playRemove, playShutter } = useSound()
   const macbookRef = useRef(null)
 
   const handleAdd = (src, x, y) => {
@@ -26,10 +26,8 @@ export default function App() {
         onMove={moveSticker}
         containerRef={macbookRef}
       />
-      <div className="bottom-bar">
-        <StickerPanel />
-      </div>
-      <Actions onClear={clearAll} containerRef={macbookRef} />
+      <StickerPanel />
+      <Actions onClear={clearAll} containerRef={macbookRef} onShutter={playShutter} />
     </div>
   )
 }

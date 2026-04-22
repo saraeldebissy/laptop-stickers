@@ -41,6 +41,43 @@ export function useSound() {
         thud.start(ctx.currentTime)
         thud.stop(ctx.currentTime + 0.07)
 
+      } else if (type === 'shutter') {
+        // Camera shutter: sharp mechanical click + mirror slap thud
+        const bufLen = Math.floor(ctx.sampleRate * 0.04)
+        const buf = ctx.createBuffer(1, bufLen, ctx.sampleRate)
+        const data = buf.getChannelData(0)
+        for (let i = 0; i < bufLen; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufLen * 0.2))
+        }
+        const noise = ctx.createBufferSource()
+        noise.buffer = buf
+
+        const hp = ctx.createBiquadFilter()
+        hp.type = 'highpass'
+        hp.frequency.value = 3200
+
+        const clickGain = ctx.createGain()
+        clickGain.gain.setValueAtTime(0.9, ctx.currentTime)
+        clickGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04)
+
+        noise.connect(hp)
+        hp.connect(clickGain)
+        clickGain.connect(ctx.destination)
+        noise.start(ctx.currentTime)
+
+        // Mirror slap — low thud underneath
+        const slap = ctx.createOscillator()
+        const slapGain = ctx.createGain()
+        slap.type = 'sine'
+        slap.frequency.setValueAtTime(180, ctx.currentTime)
+        slap.frequency.exponentialRampToValueAtTime(60, ctx.currentTime + 0.06)
+        slapGain.gain.setValueAtTime(0.5, ctx.currentTime)
+        slapGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08)
+        slap.connect(slapGain)
+        slapGain.connect(ctx.destination)
+        slap.start(ctx.currentTime)
+        slap.stop(ctx.currentTime + 0.08)
+
       } else {
         // Sticker peel: highpass-swept noise (rising "zzt") + release pop
         const bufLen = Math.floor(ctx.sampleRate * 0.18)
@@ -90,5 +127,6 @@ export function useSound() {
   return {
     playAdd: () => play('add'),
     playRemove: () => play('remove'),
+    playShutter: () => play('shutter'),
   }
 }
