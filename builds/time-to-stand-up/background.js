@@ -49,3 +49,10 @@ function openNotificationWindow() {
     focused: true
   });
 }
+
+// Handle preview request from popup
+chrome.runtime.onMessage.addListener((message) => {
+  if (message.action === 'previewNotification') {
+    openNotificationWindow();
+  }
+});
