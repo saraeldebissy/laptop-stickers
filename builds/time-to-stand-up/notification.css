@@ -1,0 +1,137 @@
+/* notification.css */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 300px;
+  height: 340px;
+  overflow: hidden;
+  background: #000;
+  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Entry animation — notification bounces in */
+@keyframes watchEntry {
+  0%   { transform: scale(0.7) translateY(20px); opacity: 0; }
+  60%  { transform: scale(1.04) translateY(-4px); opacity: 1; }
+  80%  { transform: scale(0.98) translateY(2px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+/* Ring fill animation */
+@keyframes ringFill {
+  from { stroke-dashoffset: 314; }
+  to   { stroke-dashoffset: 47; }  /* ~85% fill */
+}
+
+/* Subtle pulse on the icon */
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.15); }
+}
+
+.watch-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 340px;
+  background: radial-gradient(ellipse at 40% 30%, #1a1a1a 0%, #000 70%);
+  animation: watchEntry 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  gap: 6px;
+}
+
+/* ── Ring ── */
+.ring-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 4px;
+}
+
+.ring-svg {
+  width: 120px;
+  height: 120px;
+  transform: rotate(-90deg); /* Start arc from top */
+}
+
+.ring-track {
+  fill: none;
+  stroke: #1a3a22;           /* Dark green track */
+  stroke-width: 10;
+}
+
+.ring-progress {
+  fill: none;
+  stroke: #30D158;           /* watchOS green */
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 314;     /* 2π × r = 2π × 50 ≈ 314 */
+  stroke-dashoffset: 314;    /* Start empty */
+  animation: ringFill 1.2s ease-out 0.4s forwards;
+  filter: drop-shadow(0 0 6px #30D158aa);
+}
+
+.ring-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 32px;
+  animation: iconPulse 1.8s ease-in-out 1s infinite;
+}
+
+/* ── Labels ── */
+.label-top {
+  color: #8E8E93;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.label-main {
+  color: #FFFFFF;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+
+.label-sub {
+  color: #636366;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  margin-top: 2px;
+}
+
+/* ── Dismiss button ── */
+.dismiss-btn {
+  margin-top: 16px;
+  background: #1C1C1E;
+  color: #30D158;
+  border: 1.5px solid #30D158;
+  border-radius: 20px;
+  padding: 8px 32px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, color 0.2s;
+}
+
+.dismiss-btn:hover {
+  background: #30D158;
+  color: #000;
+}
+
+.dismiss-btn:active {
+  transform: scale(0.96);
+}

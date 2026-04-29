@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Time to Stand Up</title>
+  <link rel="stylesheet" href="notification.css" />
+</head>
+<body>
+  <div class="watch-face">
+    <!-- Activity ring -->
+    <div class="ring-container">
+      <svg class="ring-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- Track (background ring) -->
+        <circle class="ring-track" cx="60" cy="60" r="50" />
+        <!-- Animated progress arc -->
+        <circle class="ring-progress" cx="60" cy="60" r="50" />
+      </svg>
+      <!-- Standing figure icon in center -->
+      <div class="ring-icon">🧍</div>
+    </div>
+
+    <!-- Message -->
+    <p class="label-top">Time to</p>
+    <p class="label-main">Stand Up!</p>
+    <p class="label-sub">You've been sitting too long</p>
+
+    <!-- Dismiss button -->
+    <button class="dismiss-btn" id="dismissBtn">Dismiss</button>
+  </div>
+
+  <script src="notification.js"></script>
+</body>
+</html>
