@@ -38,8 +38,8 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 });
 
 function openNotificationWindow() {
-  const width = 300;
-  const height = 340;
+  const width = 380;
+  const height = 420;
 
   chrome.windows.create({
     url: chrome.runtime.getURL('notification.html'),
