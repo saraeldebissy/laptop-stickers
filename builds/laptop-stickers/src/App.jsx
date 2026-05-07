@@ -3,7 +3,7 @@ import { useLayout } from './hooks/useLayout'
 import { useSound } from './hooks/useSound'
 import { useOnboarding } from './hooks/useOnboarding'
 import { StickerPanel } from './components/StickerPanel'
-import { MacBook } from './components/MacBook'
+import { DeskScene } from './components/DeskScene'
 import { Actions } from './components/Actions'
 import './App.css'
 
@@ -11,7 +11,7 @@ export default function App() {
   const { stickers, addSticker, removeSticker, moveSticker, clearAll, restoreAll } = useLayout()
   const { playAdd, playRemove, playShutter } = useSound()
   const { hasPlacedFirst, showTip, markFirstPlaced } = useOnboarding()
-  const macbookRef = useRef(null)
+  const sceneRef = useRef(null)
 
   const handleAdd = (src, x, y) => {
     addSticker(src, x, y)
@@ -23,13 +23,13 @@ export default function App() {
 
   return (
     <div className="app">
-      <MacBook
+      <DeskScene
+        sceneRef={sceneRef}
         stickers={stickers}
         onAdd={handleAdd}
         onRemove={removeSticker}
         onRemoveStart={playRemove}
         onMove={moveSticker}
-        containerRef={macbookRef}
         showHint={showHint}
       />
       <StickerPanel />
@@ -41,7 +41,7 @@ export default function App() {
       <Actions
         onClear={clearAll}
         onRestore={restoreAll}
-        containerRef={macbookRef}
+        containerRef={sceneRef}
         onShutter={playShutter}
       />
     </div>

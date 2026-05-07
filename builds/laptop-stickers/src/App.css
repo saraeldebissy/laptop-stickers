@@ -3,9 +3,204 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
-  padding: 80px 32px 48px;
+  justify-content: flex-start;
   min-height: 100svh;
+  gap: 0;
+  padding: 0;
+}
+
+/* ─── Desk Scene ─────────────────────────────── */
+.desk-scene {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  animation: deskReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  background-image: url('/desk-bg.png');
+  background-size: cover;
+  background-position: center center;
+}
+
+.sticker-surface {
+  cursor: crosshair;
+}
+
+@keyframes deskReveal {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Room wall — dark gradient background */
+.room-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse 70% 50% at 50% 10%,
+      rgba(220, 190, 255, 0.22) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 100% 70% at 50% 115%,
+      rgba(50, 10, 110, 0.55) 0%,
+      transparent 55%
+    ),
+    linear-gradient(180deg, #8258CC 0%, #7248BC 40%, #6038AC 100%);
+}
+
+/* subtle base-board line at wall/desk junction */
+.room-bg::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Wall clock — right of laptop (laptop right edge ≈ x 890, scene width 1060) */
+.wall-clock {
+  position: absolute;
+  top: 28px;
+  right: 44px;
+  width: 78px;
+  height: 78px;
+}
+
+/* Pegboard — left of laptop (laptop left edge ≈ x 170) */
+.desk-pegboard-wrap {
+  position: absolute;
+  top: 38px;
+  left: 18px;
+  width: 155px;
+  height: 114px;
+  z-index: 1;
+}
+
+.desk-pegboard {
+  width: 100%;
+  height: 100%;
+}
+
+/* Desk mat */
+.desk-mat {
+  position: absolute;
+  bottom: 28px;
+  left: 148px;
+  right: 148px;
+  height: 148px;
+  background: linear-gradient(180deg, #6A3EC2 0%, #5A2EB2 100%);
+  border-radius: 14px;
+  z-index: 2;
+  box-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.07),
+    0 4px 18px rgba(0, 0, 0, 0.38);
+}
+
+/* ─── Desk Surface ───────────────────────────── */
+.desk-surface {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 160px;
+  background:
+    repeating-linear-gradient(
+      88deg,
+      transparent 0px,
+      transparent 140px,
+      rgba(255, 255, 255, 0.018) 140px,
+      rgba(255, 255, 255, 0.018) 141px
+    ),
+    linear-gradient(180deg, #533524 0%, #341d0f 55%, #1c0e06 100%);
+  border-top: 1px solid rgba(255, 160, 60, 0.22);
+  z-index: 1;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    inset 0 28px 56px rgba(0, 0, 0, 0.28);
+}
+
+/* front face of the desk — visible vertical edge */
+.desk-surface::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 26px;
+  background: linear-gradient(180deg, #180e06, #0e0904);
+  border-top: 1px solid rgba(255, 255, 255, 0.025);
+}
+
+/* warm lamp spill on desk surface */
+.desk-surface::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 180px;
+  background: radial-gradient(ellipse at 88% 0%, rgba(255, 185, 65, 0.22) 0%, rgba(255, 155, 40, 0.07) 45%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ─── Desk Props ─────────────────────────────── */
+.desk-lamp-wrap {
+  position: absolute;
+  bottom: 160px;
+  right: 16px;
+  width: 120px;
+  height: 240px;
+  z-index: 2;
+}
+
+.desk-lamp {
+  width: 100%;
+  height: 100%;
+}
+
+.desk-plant-wrap {
+  position: absolute;
+  bottom: 160px;
+  left: 16px;
+  width: 126px;
+  height: 144px;
+  z-index: 2;
+}
+
+.desk-plant {
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Laptop Hero ────────────────────────────── */
+.desk-laptop {
+  position: absolute;
+  top: 21%;   /* lid top ≈ 197px of 941px image height — below chair back */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+/* suppress macbook's own entrance — desk scene animates as one */
+.desk-laptop .macbook-scene {
+  animation: none;
+}
+
+/* laptop shadow cast on desk surface */
+.desk-laptop::after {
+  content: '';
+  position: absolute;
+  bottom: -24px;
+  left: 6%;
+  right: 6%;
+  height: 32px;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.52) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* ─── MacBook Scene ──────────────────────────── */
@@ -14,11 +209,23 @@
   flex-direction: column;
   align-items: center;
   perspective: 1800px;
+  animation: sceneReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes sceneReveal {
+  from {
+    opacity: 0;
+    transform: translateY(48px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .macbook-lid-container {
   position: relative;
-  width: 720px;
+  width: 40vw;  /* lid ≈ 40% of image width = 672/1672 */
   transform: rotateX(2deg);
   transform-origin: bottom center;
 }
@@ -40,8 +247,8 @@
       #d4d4da 65%,
       #e0e0e6 100%
     );
-  border-radius: 22px 22px 6px 6px;
-  height: 450px;
+  border-radius: 14px 14px 4px 4px;
+  height: 22vw; /* lid ≈ 39% of image height → 39% × 56.28vw = 21.9vw */
   border: 1px solid rgba(255, 255, 255, 0.65);
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   box-shadow:
@@ -104,8 +311,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 54px;
-  height: 66px;
+  width: 2.4vw;
+  height: 2.9vw;
   fill: rgba(0, 0, 0, 0.10);
   z-index: 0;
   pointer-events: none;
@@ -212,29 +419,49 @@
 
 /* ─── Sticker Tray ───────────────────────────── */
 .sticker-panel {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
+  animation: trayReveal 0.7s 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes trayReveal {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 .pill-inner {
-  background: rgba(20, 20, 24, 0.97);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(120, 60, 200, 0.22);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(210, 170, 255, 0.18);
+  border-top-color: rgba(220, 185, 255, 0.30);
   border-radius: 20px;
-  padding: 12px 28px;
+  padding: 12px 24px;
   display: flex;
   align-items: center;
   gap: 8px;
-  max-width: 800px;
+  max-width: 720px;
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
   box-shadow:
-    0 0 0 0.5px rgba(0, 0, 0, 0.6),
-    0 4px 20px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    0 0 0 0.5px rgba(80, 20, 160, 0.4),
+    0 8px 32px rgba(60, 10, 130, 0.45),
+    inset 0 1px 0 rgba(240, 210, 255, 0.15),
+    inset 0 -1px 0 rgba(60, 10, 130, 0.25);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
 }
 
 .pill-inner::-webkit-scrollbar {
@@ -245,8 +472,8 @@
   width: 64px;
   height: 64px;
   border-radius: 12px;
-  background: rgba(32, 32, 38, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(100, 50, 180, 0.28);
+  border: 1px solid rgba(200, 160, 255, 0.15);
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -261,11 +488,12 @@
 }
 
 .sticker-thumb:hover {
-  transform: scale(1.12) translateY(-4px);
-  background: rgba(46, 46, 54, 0.98);
+  transform: scale(1.14) translateY(-5px);
+  background: rgba(48, 48, 58, 0.98);
+  border-color: rgba(255, 255, 255, 0.11);
   box-shadow:
-    0 10px 28px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 12px 32px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.11);
 }
 
 .sticker-thumb:active {
@@ -282,61 +510,66 @@
   user-select: none;
 }
 
-/* ─── Action Chips ───────────────────────────── */
+/* ─── Action Toolbar ─────────────────────────── */
 .actions {
   position: fixed;
-  top: 28px;
-  right: 28px;
+  top: 24px;
+  right: 24px;
   display: flex;
-  gap: 8px;
+  align-items: center;
+  padding: 5px;
+  gap: 2px;
+  background: rgba(18, 18, 22, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-top-color: rgba(255, 255, 255, 0.11);
+  border-radius: 14px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.65),
+    0 4px 20px rgba(0, 0, 0, 0.52),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
   z-index: 10;
+  animation: actionsReveal 0.5s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes actionsReveal {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .chip {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(28, 28, 32, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: transparent;
+  border: 1px solid transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
   transition:
-    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
-    background 0.15s ease,
-    box-shadow 0.15s ease;
+    background 0.14s ease,
+    border-color 0.14s ease,
+    transform 0.16s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .chip:hover {
-  transform: scale(1.1) translateY(-2px);
-  background: rgba(42, 42, 50, 0.98);
-  box-shadow:
-    0 6px 20px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.07);
+  transform: translateY(-1px);
 }
 
 .chip:active {
-  transform: scale(0.94);
-  transition-duration: 0.08s;
-}
-
-.chip-emoji {
-  font-size: 17px;
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
+  transform: scale(0.92);
+  background: rgba(255, 255, 255, 0.04);
+  transition-duration: 0.06s;
 }
 
 .chip svg {
-  width: 15px;
-  height: 15px;
-  stroke: rgba(255, 255, 255, 0.45);
+  width: 14px;
+  height: 14px;
+  stroke: rgba(255, 255, 255, 0.42);
   fill: none;
   stroke-width: 1.6;
   stroke-linecap: round;
@@ -361,12 +594,13 @@
 
 /* ─── Sticker Controls Hint ─────────────────── */
 .sticker-controls-hint {
-  font-size: 11px;
-  letter-spacing: 0.07em;
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.09em;
   color: rgba(255, 255, 255, 0);
   white-space: nowrap;
   pointer-events: none;
-  transition: color 0.2s ease;
+  transition: color 0.25s ease;
   margin-top: 14px;
 }
 
@@ -400,10 +634,10 @@
 }
 
 .lid-hint-text {
-  font-size: 10px;
-  letter-spacing: 0.1em;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.22);
+  color: rgba(0, 0, 0, 0.2);
   font-weight: 500;
 }
 
@@ -418,17 +652,22 @@
   bottom: 168px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(20, 20, 24, 0.94);
+  background: rgba(22, 22, 26, 0.97);
   border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 20px;
+  border-top-color: rgba(255, 255, 255, 0.10);
+  border-radius: 14px;
   padding: 7px 16px;
   font-size: 11px;
-  letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.4);
+  font-weight: 400;
+  letter-spacing: 0.07em;
+  color: rgba(255, 255, 255, 0.38);
   white-space: nowrap;
   pointer-events: none;
   z-index: 10;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.6),
+    0 4px 16px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
   animation: tipIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
@@ -443,39 +682,47 @@
   bottom: 28px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(28, 28, 32, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  padding: 8px 8px 8px 16px;
+  background: rgba(22, 22, 26, 0.97);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-top-color: rgba(255, 255, 255, 0.10);
+  border-radius: 14px;
+  padding: 6px 6px 6px 14px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.55);
+  gap: 8px;
+  font-size: 11.5px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.6),
+    0 4px 20px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
   white-space: nowrap;
   z-index: 20;
-  animation: toastIn 0.25s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: toastIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .undo-btn {
-  background: rgba(255, 255, 255, 0.09);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
-  color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 9px;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: inherit;
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.04em;
   cursor: pointer;
   padding: 4px 12px;
-  transition: background 0.12s ease, color 0.12s ease;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
 }
 
 .undo-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 @keyframes toastIn {

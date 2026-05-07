@@ -5,7 +5,7 @@
 }
 
 html {
-  background: #0d0d0f;
+  background: #3A0878;
 }
 
 body {
@@ -13,15 +13,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  color: rgba(255, 255, 255, 0.5);
   overflow: hidden;
-  background: radial-gradient(
-    ellipse 90% 75% at 50% 44%,
-    #1a1a1e 0%,
-    #111113 50%,
-    #080809 100%
-  );
+  background:
+    radial-gradient(
+      ellipse 100% 60% at 50% 0%,
+      rgba(180, 130, 255, 0.18) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 120% 100% at 50% 50%,
+      #5C28A0 0%,
+      #420E82 55%,
+      #2C0062 100%
+    );
 }
 
 #root {
