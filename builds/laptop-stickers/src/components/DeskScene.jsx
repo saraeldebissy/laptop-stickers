@@ -1,12 +1,14 @@
 import { useRef, useState, useEffect } from 'react'
 import { PlacedSticker } from './PlacedSticker'
 
-// Natural image dimensions (desk-bg.png)
+// Natural image dimensions (background.png)
 const IMG_W = 1672
 const IMG_H = 941
 
-// Laptop lid bounds as fractions of image size
-const LID = { l: 0.305, t: 0.500, w: 0.390, h: 0.260 }
+// Lid defined by its CENTER as a fraction of image size + dimensions.
+// Center-anchoring means the drop zone stays pinned to the same point
+// on the photo regardless of how background-size:cover crops the image.
+const LID = { cx: 0.526, cy: 0.645, w: 0.420, h: 0.380 }
 
 function calcLidPos() {
   const vw = window.innerWidth
@@ -18,11 +20,13 @@ function calcLidPos() {
   // background-position: center center
   const ox = (vw - rw) / 2
   const oy = (vh - rh) / 2
+  const w = Math.round(LID.w * rw)
+  const h = Math.round(LID.h * rh)
   return {
-    left: Math.round(ox + LID.l * rw),
-    top:  Math.round(oy + LID.t * rh),
-    width:  Math.round(LID.w * rw),
-    height: Math.round(LID.h * rh),
+    left: Math.round(ox + LID.cx * rw - w / 2),
+    top:  Math.round(oy + LID.cy * rh - h / 2),
+    width:  w,
+    height: h,
   }
 }
 

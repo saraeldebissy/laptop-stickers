@@ -51,18 +51,10 @@ export function Actions({ onClear, onRestore, containerRef, onShutter }) {
       )}
       <div className="actions">
         <button className="chip" onClick={handleScreenshot} title="Save screenshot">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 0 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-            <circle cx="12" cy="13" r="4" />
-          </svg>
+          📸
         </button>
         <button className="chip" onClick={handleClear} title="Clear all stickers">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <polyline points="3 6 5 6 21 6" />
-            <path d="M19 6l-1 14H6L5 6" />
-            <path d="M10 11v6M14 11v6" />
-            <path d="M9 6V4h6v2" />
-          </svg>
+          🧹
         </button>
       </div>
     </>

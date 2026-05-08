@@ -16,7 +16,7 @@
   height: 100svh;
   overflow: hidden;
   animation: deskReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  background-image: url('/desk-bg.png');
+  background-image: url('/background.png');
   background-size: cover;
   background-position: center center;
 }
@@ -45,6 +45,14 @@
 
 .placed-sticker:active {
   cursor: grabbing;
+}
+
+body.shift-held .placed-sticker:not(:active) {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M23 4v6h-6' stroke='black' stroke-width='3'/%3E%3Cpath d='M20.49 15a9 9 0 1 1-.49-3.95L23 10' stroke='black' stroke-width='3'/%3E%3Cpath d='M23 4v6h-6' stroke='white' stroke-width='2'/%3E%3Cpath d='M20.49 15a9 9 0 1 1-.49-3.95L23 10' stroke='white' stroke-width='2'/%3E%3C/svg%3E") 10 10, pointer;
+}
+
+.placed-sticker.resizing:not(:active) {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='15 3 21 3 21 9' stroke='black' stroke-width='3'/%3E%3Cpolyline points='9 21 3 21 3 15' stroke='black' stroke-width='3'/%3E%3Cline x1='21' y1='3' x2='14' y2='10' stroke='black' stroke-width='3'/%3E%3Cline x1='3' y1='21' x2='10' y2='14' stroke='black' stroke-width='3'/%3E%3Cpolyline points='15 3 21 3 21 9' stroke='white' stroke-width='1.8'/%3E%3Cpolyline points='9 21 3 21 3 15' stroke='white' stroke-width='1.8'/%3E%3Cline x1='21' y1='3' x2='14' y2='10' stroke='white' stroke-width='1.8'/%3E%3Cline x1='3' y1='21' x2='10' y2='14' stroke='white' stroke-width='1.8'/%3E%3C/svg%3E") 10 10, nwse-resize;
 }
 
 .sticker-inner {
@@ -120,6 +128,9 @@
   align-items: center;
   justify-content: center;
   z-index: 10;
+  border-radius: 20px;
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
   animation: trayReveal 0.7s 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
@@ -135,13 +146,13 @@
 }
 
 .pill-inner {
-  background: rgba(120, 60, 200, 0.22);
+  background: rgba(160, 120, 210, 0.28);
   backdrop-filter: blur(20px) saturate(160%);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border: 1px solid rgba(210, 170, 255, 0.18);
-  border-top-color: rgba(220, 185, 255, 0.30);
-  border-radius: 20px;
-  padding: 12px 24px;
+  border: 1px solid rgba(220, 200, 255, 0.30);
+  border-top-color: rgba(230, 215, 255, 0.45);
+  border-radius: 16px;
+  padding: 8px 16px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -150,10 +161,10 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
   box-shadow:
-    0 0 0 0.5px rgba(80, 20, 160, 0.4),
-    0 8px 32px rgba(60, 10, 130, 0.45),
-    inset 0 1px 0 rgba(240, 210, 255, 0.15),
-    inset 0 -1px 0 rgba(60, 10, 130, 0.25);
+    0 0 0 0.5px rgba(180, 140, 255, 0.18),
+    0 8px 32px rgba(60, 10, 130, 0.22),
+    inset 0 1px 0 rgba(240, 220, 255, 0.30),
+    inset 0 -1px 0 rgba(60, 10, 130, 0.15);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
 }
@@ -163,18 +174,18 @@
 }
 
 .sticker-thumb {
-  width: 64px;
-  height: 64px;
-  border-radius: 12px;
-  background: rgba(100, 50, 180, 0.28);
-  border: 1px solid rgba(200, 160, 255, 0.15);
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  background: rgba(190, 160, 235, 0.32);
+  border: 1px solid rgba(220, 200, 255, 0.38);
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: grab;
   overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
   transition:
     transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.15s ease,
@@ -183,11 +194,11 @@
 
 .sticker-thumb:hover {
   transform: scale(1.14) translateY(-5px);
-  background: rgba(48, 48, 58, 0.98);
-  border-color: rgba(255, 255, 255, 0.11);
+  background: rgba(255, 255, 255, 0.26);
+  border-color: rgba(255, 255, 255, 0.38);
   box-shadow:
-    0 12px 32px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.11);
+    0 12px 32px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
 .sticker-thumb:active {
@@ -197,8 +208,8 @@
 }
 
 .sticker-thumb img {
-  width: 48px;
-  height: 48px;
+  width: 38px;
+  height: 38px;
   object-fit: contain;
   pointer-events: none;
   user-select: none;
@@ -211,18 +222,7 @@
   right: 24px;
   display: flex;
   align-items: center;
-  padding: 5px;
-  gap: 2px;
-  background: rgba(18, 18, 22, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-top-color: rgba(255, 255, 255, 0.11);
-  border-radius: 14px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow:
-    0 0 0 0.5px rgba(0, 0, 0, 0.65),
-    0 4px 20px rgba(0, 0, 0, 0.52),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  gap: 8px;
   z-index: 10;
   animation: actionsReveal 0.5s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -233,41 +233,34 @@
 }
 
 .chip {
-  width: 34px;
-  height: 34px;
-  border-radius: 9px;
-  background: transparent;
-  border: 1px solid transparent;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.30);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
   transition:
     background 0.14s ease,
-    border-color 0.14s ease,
     transform 0.16s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .chip:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.07);
-  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.45);
+  transform: translateY(-2px);
 }
 
 .chip:active {
-  transform: scale(0.92);
-  background: rgba(255, 255, 255, 0.04);
+  transform: scale(0.9);
   transition-duration: 0.06s;
 }
 
-.chip svg {
-  width: 14px;
-  height: 14px;
-  stroke: rgba(255, 255, 255, 0.42);
-  fill: none;
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.chip {
+  font-size: 16px;
+  line-height: 1;
 }
 
 /* ─── Screenshot Flash ───────────────────────── */
@@ -324,34 +317,27 @@
   50%       { opacity: 1;   transform: translateX(-50%) translateY(-4px); }
 }
 
-/* ─── Resize Tip ─────────────────────────────── */
-.resize-tip {
+/* ─── Sticker Hover Tip ──────────────────────── */
+.desk-scene::after {
+  content: 'scroll to scale  ·  shift+scroll to rotate';
   position: fixed;
-  bottom: 168px;
+  bottom: 108px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(22, 22, 26, 0.97);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-top-color: rgba(255, 255, 255, 0.10);
-  border-radius: 14px;
-  padding: 7px 16px;
   font-size: 11px;
   font-weight: 400;
-  letter-spacing: 0.07em;
-  color: rgba(255, 255, 255, 0.38);
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.45);
   white-space: nowrap;
   pointer-events: none;
-  z-index: 10;
-  box-shadow:
-    0 0 0 0.5px rgba(0, 0, 0, 0.6),
-    0 4px 16px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07);
-  animation: tipIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+  z-index: 11;
+  transition: opacity 0.22s ease;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
 }
 
-@keyframes tipIn {
-  from { opacity: 0; transform: translateX(-50%) translateY(6px); }
-  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+.desk-scene:has(.placed-sticker:hover)::after {
+  opacity: 1;
 }
 
 /* ─── Undo Toast ─────────────────────────────── */

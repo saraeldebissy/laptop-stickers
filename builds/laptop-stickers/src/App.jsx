@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { useLayout } from './hooks/useLayout'
 import { useSound } from './hooks/useSound'
 import { useOnboarding } from './hooks/useOnboarding'
@@ -10,8 +10,19 @@ import './App.css'
 export default function App() {
   const { stickers, addSticker, removeSticker, moveSticker, clearAll, restoreAll } = useLayout()
   const { playAdd, playRemove, playShutter } = useSound()
-  const { hasPlacedFirst, showTip, markFirstPlaced } = useOnboarding()
+  const { hasPlacedFirst, markFirstPlaced } = useOnboarding()
   const sceneRef = useRef(null)
+
+  useEffect(() => {
+    const down = (e) => { if (e.key === 'Shift') document.body.classList.add('shift-held') }
+    const up   = (e) => { if (e.key === 'Shift') document.body.classList.remove('shift-held') }
+    window.addEventListener('keydown', down)
+    window.addEventListener('keyup', up)
+    return () => {
+      window.removeEventListener('keydown', down)
+      window.removeEventListener('keyup', up)
+    }
+  }, [])
 
   const handleAdd = (src, x, y) => {
     addSticker(src, x, y)
@@ -33,11 +44,6 @@ export default function App() {
         showHint={showHint}
       />
       <StickerPanel />
-      {showTip && (
-        <div className="resize-tip" aria-live="polite">
-          scroll to resize &nbsp;·&nbsp; shift + scroll to rotate
-        </div>
-      )}
       <Actions
         onClear={clearAll}
         onRestore={restoreAll}

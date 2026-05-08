@@ -8,20 +8,30 @@ const stickerModules = import.meta.glob('../stickers/*', {
 
 const STICKER_SRCS = Object.values(stickerModules)
 
+function easeInOut(t) {
+  return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
+}
+
+function animateScroll(el, from, to, duration, onDone) {
+  const start = performance.now()
+  let raf
+  const step = (now) => {
+    const t = Math.min((now - start) / duration, 1)
+    el.scrollLeft = from + (to - from) * easeInOut(t)
+    if (t < 1) { raf = requestAnimationFrame(step) }
+    else { onDone?.() }
+  }
+  raf = requestAnimationFrame(step)
+  return () => cancelAnimationFrame(raf)
+}
+
 export function StickerPanel() {
   const pillRef = useRef(null)
 
   useEffect(() => {
     const el = pillRef.current
     if (!el) return
-    // Teaser sweep: wait, drift right to show range, drift back
-    const t1 = setTimeout(() => {
-      el.scrollTo({ left: el.scrollWidth, behavior: 'smooth' })
-    }, 900)
-    const t2 = setTimeout(() => {
-      el.scrollTo({ left: 0, behavior: 'smooth' })
-    }, 2200)
-    return () => { clearTimeout(t1); clearTimeout(t2) }
+    // no teaser scroll
   }, [])
 
   const handleDragStart = (e, src) => {

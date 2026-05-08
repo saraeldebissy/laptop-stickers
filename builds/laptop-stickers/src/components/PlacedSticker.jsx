@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from 'react'
 const MIN_SIZE = 48
 const MAX_SIZE = 180
 const STEP = 8
-const ROT_STEP = 6
+const ROT_STEP = 3
 
 export function PlacedSticker({ id, src, x, y, rotation, onRemove, onRemoveStart, onMove }) {
   const nodeRef = useRef(null)
@@ -12,6 +12,7 @@ export function PlacedSticker({ id, src, x, y, rotation, onRemove, onRemoveStart
   const sizeRef = useRef(90)
   const rotRef = useRef(rotation)
   const gestureRef = useRef(null)
+  const resizeTimerRef = useRef(null)
   const [removing, setRemoving] = useState(false)
   const [size, setSize] = useState(90)
   const [rot, setRot] = useState(rotation)
@@ -24,14 +25,21 @@ export function PlacedSticker({ id, src, x, y, rotation, onRemove, onRemoveStart
     const el = nodeRef.current
     if (!el) return
 
+    const markResizing = () => {
+      el.classList.add('resizing')
+      clearTimeout(resizeTimerRef.current)
+      resizeTimerRef.current = setTimeout(() => el.classList.remove('resizing'), 400)
+    }
+
     const onWheel = (e) => {
       e.preventDefault()
       if (e.ctrlKey) {
-        // Trackpad pinch — Chrome / Firefox on Mac
+        markResizing()
         setSize((prev) => Math.min(MAX_SIZE, Math.max(MIN_SIZE, prev - e.deltaY * 0.6)))
       } else if (e.shiftKey) {
         setRot((prev) => prev + (e.deltaY < 0 ? -ROT_STEP : ROT_STEP))
       } else {
+        markResizing()
         setSize((prev) => Math.min(MAX_SIZE, Math.max(MIN_SIZE, prev + (e.deltaY < 0 ? STEP : -STEP))))
       }
     }
@@ -62,6 +70,7 @@ export function PlacedSticker({ id, src, x, y, rotation, onRemove, onRemoveStart
       el.removeEventListener('wheel', onWheel)
       el.removeEventListener('gesturestart', onGestureStart)
       el.removeEventListener('gesturechange', onGestureChange)
+      clearTimeout(resizeTimerRef.current)
     }
   }, [])
 
