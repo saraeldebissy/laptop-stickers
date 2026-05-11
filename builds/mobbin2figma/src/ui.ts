@@ -159,7 +159,7 @@ saveTokenBtn.addEventListener('click', () => {
   token = t;
   post({ type: 'SET_TOKEN', token: t });
   showSearch();
-  loadCategories();
+  loadCategories().catch(() => { /* fallback categories already shown */ });
 });
 
 patternInput.addEventListener('keydown', (e) => {
@@ -175,6 +175,9 @@ loadMoreBtn.addEventListener('click', () => {
 
 changeTokenBtn.addEventListener('click', () => {
   tokenInput.value = token ?? '';
+  selectedIds.clear();
+  currentScreens = [];
+  updatePasteBtn();
   showAuth();
 });
 
@@ -184,7 +187,13 @@ pasteBtn.addEventListener('click', () => {
     .map(s => ({ url: s.imageUrl, name: `${s.appName} — ${s.screenPattern}` }));
 
   loadingOverlay.style.display = 'flex';
+  const overlayTimeout = setTimeout(() => {
+    loadingOverlay.style.display = 'none';
+    showError("Paste timed out. Try again.");
+  }, 15000);
   post({ type: 'PASTE_SCREENS', screens });
+  // Store timeout so PASTE_COMPLETE/PASTE_ERROR can cancel it
+  (window as Window & { _pasteTimeout?: ReturnType<typeof setTimeout> })._pasteTimeout = overlayTimeout;
 });
 
 // ── Sandbox → UI messages ──────────────────────────────────────────────────
@@ -195,19 +204,21 @@ window.onmessage = (event: MessageEvent) => {
   switch (msg.type) {
     case 'TOKEN_VALUE':
       token = msg.token;
-      if (token) { showSearch(); loadCategories(); }
+      if (token) { showSearch(); loadCategories().catch(() => { /* fallback categories already shown */ }); }
       else { showAuth(); }
       break;
 
     case 'PASTE_COMPLETE':
+      clearTimeout((window as Window & { _pasteTimeout?: ReturnType<typeof setTimeout> })._pasteTimeout);
       loadingOverlay.style.display = 'none';
       selectedIds.clear();
       updatePasteBtn();
       break;
 
     case 'PASTE_ERROR':
+      clearTimeout((window as Window & { _pasteTimeout?: ReturnType<typeof setTimeout> })._pasteTimeout);
       loadingOverlay.style.display = 'none';
-      showError(msg.message);
+      showError(msg.message || 'Some screens failed to load.');
       break;
   }
 };
