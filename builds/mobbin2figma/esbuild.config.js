@@ -21,9 +21,10 @@ async function build() {
   });
 
   const js = fs.readFileSync('dist/ui.js', 'utf8');
-  let html = fs.readFileSync('src/ui.html', 'utf8');
-  html = html.replace('</body>', `<script>${js}</script></body>`);
-  fs.writeFileSync('dist/ui.html', html);
+  const htmlTemplate = fs.readFileSync('src/ui.html', 'utf8');
+  const injected = htmlTemplate.replace('</body>', `<script>${js}</script></body>`);
+  if (injected === htmlTemplate) throw new Error('src/ui.html is missing </body> — JS not injected');
+  fs.writeFileSync('dist/ui.html', injected);
   fs.unlinkSync('dist/ui.js');
 
   console.log('Build complete');
