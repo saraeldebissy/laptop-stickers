@@ -1,0 +1,4 @@
+node_modules/
+dist/
+.vercel/
+proxy/node_modules/

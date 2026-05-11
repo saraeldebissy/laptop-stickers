@@ -1,0 +1,21 @@
+{
+  "name": "mobbin2figma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "node esbuild.config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.125.0",
+    "esbuild": "^0.28.0",
+    "typescript": "^6.0.3"
+  }
+}
