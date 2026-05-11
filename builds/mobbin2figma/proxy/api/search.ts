@@ -42,5 +42,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (!mobbinRes.ok) { res.status(mobbinRes.status).json({ error: 'Mobbin API error' }); return; }
 
   const data = await mobbinRes.json();
+
+  // Mobbin returns 200 with error body on auth failure
+  if (data?.error?.message === 'unauthenticated' || data?.error?.message === 'Unauthorized') {
+    res.status(401).json({ error: 'Token expired' }); return;
+  }
+
   res.status(200).json(data);
 }
