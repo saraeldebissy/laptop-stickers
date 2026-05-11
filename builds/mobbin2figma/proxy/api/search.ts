@@ -14,11 +14,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   if (!token) { res.status(400).json({ error: 'Missing token' }); return; }
 
+  // Token may be "part0|part1" if the Supabase session is split across two cookies
+  const cookieHeader = token.includes('|')
+    ? `sb-ujasntkfphywizsdaapi-auth-token.0=${token.split('|')[0]}; sb-ujasntkfphywizsdaapi-auth-token.1=${token.split('|')[1]}`
+    : `sb-ujasntkfphywizsdaapi-auth-token.0=${token}`;
+
   const mobbinRes = await fetch(`${MOBBIN_BASE}/api/content/search-screens`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      'Cookie': cookieHeader,
     },
     body: JSON.stringify({
       searchRequestId: '',
@@ -39,12 +44,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   });
 
   if (mobbinRes.status === 401) { res.status(401).json({ error: 'Token expired' }); return; }
-  if (!mobbinRes.ok) { res.status(mobbinRes.status).json({ error: 'Mobbin API error' }); return; }
+  if (!mobbinRes.ok) { res.status(401).json({ error: 'Token expired' }); return; }
 
-  const data = await mobbinRes.json();
+  let data: unknown;
+  try {
+    data = await mobbinRes.json();
+  } catch {
+    // Mobbin returned non-JSON (e.g. HTML redirect on bad session)
+    res.status(401).json({ error: 'Token expired' }); return;
+  }
 
   // Mobbin returns 200 with error body on auth failure
-  if (data?.error?.message === 'unauthenticated' || data?.error?.message === 'Unauthorized') {
+  const d = data as Record<string, unknown>;
+  if ((d?.error as Record<string, unknown>)?.message === 'unauthenticated') {
     res.status(401).json({ error: 'Token expired' }); return;
   }
 
