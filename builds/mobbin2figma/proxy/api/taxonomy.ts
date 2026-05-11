@@ -17,7 +17,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Cookie': `sb-ujasntkfphywizsdaapi-auth-token.0=${token}`,
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({}),
     });
