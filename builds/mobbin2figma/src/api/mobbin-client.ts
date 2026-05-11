@@ -1,7 +1,7 @@
 import type { MobbinScreen, SearchFilters } from '../types';
 
 // Replace with your deployed proxy URL after running: cd proxy && npx vercel --prod
-export const PROXY_URL = 'https://YOUR_PROXY_URL.vercel.app';
+export const PROXY_URL = 'https://proxy-eight-gray-90.vercel.app';
 
 export const FALLBACK_CATEGORIES = [
   'Ecommerce', 'Finance', 'Health & Fitness', 'Social', 'Productivity',
