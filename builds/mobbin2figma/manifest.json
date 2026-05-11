@@ -6,6 +6,6 @@
   "ui": "dist/ui.html",
   "editorType": ["figma"],
   "networkAccess": {
-    "allowedDomains": ["*.vercel.app"]
+    "allowedDomains": ["https://*.vercel.app"]
   }
 }
