@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+/* === Static design tokens → generate Tailwind utilities === */
+@theme {
+  /* Surfaces — Pwebsite-inspired off-white canvas */
+  --color-canvas: #F4F5F8;
+  --color-surface-1: #F7F8FB;
+  --color-surface-2: #EEF0F6;
+  --color-surface-3: #E4E7EF;
+
+  /* Borders */
+  --color-border: #E4E7EF;
+  --color-border-hover: #D1D5E3;
+
+  /* Text */
+  --color-ink: #0F1118;
+  --color-ink-muted: #7B8194;
+  --color-ink-subtle: #A1A7BB;
+
+  /* Accent */
+  --color-accent: #F472B6;
+  --color-accent-hover: #EC4899;
+
+  /* Actions */
+  --color-action-bg: #0F1118;
+  --color-action-text: #FFFFFF;
+  --color-action-bg-hover: #262A36;
+
+  /* Tonal card backgrounds — from Pwebsite mosaic palette */
+  --color-tone-sand: #EFE5DB;
+  --color-tone-blue: #DFE8F5;
+  --color-tone-lilac: #EBDEEF;
+  --color-tone-ink: #0F1118;
+
+  /* Mesh palette — expressive backgrounds only, not UI chrome */
+  --color-mesh-periwinkle: #A8AEDD;
+  --color-mesh-yellow: #F5BE30;
+  --color-mesh-orange: #F07848;
+  --color-mesh-pink: #F04878;
+  --color-mesh-red: #E84040;
+
+  /* Border radius */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 9999px;
+}
+
+/* === CSS-var references (fonts from next/font) === */
+@theme inline {
+  --font-sans: var(--font-outfit);
+  --font-mono: var(--font-space-mono);
+  --font-script: var(--font-script);
+  --font-newsreader: var(--font-newsreader);
+}
+
+/* === Non-theme custom properties === */
+:root {
+  --gradient-accent-text: linear-gradient(90deg, #F3A6C7 0%, #C8B8FF 100%);
+  --grid-line-color: rgba(15, 17, 24, 0.07);
+  --grid-size: 48px;
+}
+
+/* === Utility classes === */
+.bg-grid {
+  background-image:
+    linear-gradient(var(--grid-line-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line-color) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+}
+
+.gradient-text {
+  background: var(--gradient-accent-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at 90% 0%, rgba(214, 219, 238, 0.35), transparent 35%),
+    radial-gradient(circle at 10% 0%, rgba(237, 228, 241, 0.42), transparent 38%),
+    var(--color-canvas);
+  color: var(--color-ink);
+}
