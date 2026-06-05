@@ -1,58 +1,75 @@
 // background.js
-const ALARM_NAME = 'stand-up-reminder';
-const STAND_UP_HOUR = 13; // 1:00 PM
+const ALARM_PREFIX = 'standup-';
+const DEFAULT_TIMES = ['13:00'];
 
-// Register the alarm on install and on browser startup.
-// chrome.alarms.create is idempotent by name — safe to call multiple times.
-chrome.runtime.onInstalled.addListener(() => {
-  scheduleAlarm();
-});
+chrome.runtime.onInstalled.addListener(() => scheduleAlarms());
+chrome.runtime.onStartup.addListener(() => scheduleAlarms());
 
-chrome.runtime.onStartup.addListener(() => {
-  scheduleAlarm();
-});
+function scheduleAlarms() {
+  chrome.storage.sync.get({ reminderTimes: DEFAULT_TIMES, remindersEnabled: true }, ({ reminderTimes, remindersEnabled }) => {
+    chrome.alarms.getAll(existing => {
+      const clears = existing
+        .filter(a => a.name.startsWith(ALARM_PREFIX))
+        .map(a => new Promise(r => chrome.alarms.clear(a.name, r)));
 
-function scheduleAlarm() {
-  const now = new Date();
-  const target = new Date();
-  target.setHours(STAND_UP_HOUR, 0, 0, 0);
+      Promise.all(clears).then(() => {
+        updateBadge(remindersEnabled);
+        if (!remindersEnabled) {
+          console.log('[StandUp] Reminders disabled — alarms cleared');
+          return;
+        }
+        reminderTimes.forEach(time => {
+          const [hour, minute] = time.split(':').map(Number);
+          const now = new Date();
+          const target = new Date();
+          target.setHours(hour, minute, 0, 0);
+          if (now >= target) target.setDate(target.getDate() + 1);
 
-  // If 1 PM has already passed today, schedule for tomorrow
-  if (now >= target) {
-    target.setDate(target.getDate() + 1);
-  }
-
-  chrome.alarms.create(ALARM_NAME, {
-    when: target.getTime(),
-    periodInMinutes: 24 * 60 // repeat daily
-  });
-
-  console.log('[StandUp] Alarm scheduled for', target.toLocaleString());
-}
-
-// Listen for the alarm firing
-chrome.alarms.onAlarm.addListener((alarm) => {
-  if (alarm.name === ALARM_NAME) {
-    openNotificationWindow();
-  }
-});
-
-function openNotificationWindow() {
-  const width = 380;
-  const height = 420;
-
-  chrome.windows.create({
-    url: chrome.runtime.getURL('notification.html'),
-    type: 'popup',
-    width,
-    height,
-    focused: true
+          chrome.alarms.create(`${ALARM_PREFIX}${time.replace(':', '')}`, {
+            when: target.getTime(),
+            periodInMinutes: 24 * 60
+          });
+          console.log('[StandUp] Scheduled', time, '→', target.toLocaleString());
+        });
+      });
+    });
   });
 }
 
-// Handle preview request from popup
-chrome.runtime.onMessage.addListener((message) => {
-  if (message.action === 'previewNotification') {
-    openNotificationWindow();
+chrome.alarms.onAlarm.addListener(alarm => {
+  if (alarm.name.startsWith(ALARM_PREFIX)) injectOverlay();
+});
+
+async function injectOverlay() {
+  try {
+    const win = await chrome.windows.getLastFocused({ windowTypes: ['normal'] });
+    chrome.windows.create({
+      url: chrome.runtime.getURL('notification.html'),
+      type: 'popup',
+      left:   win.left,
+      top:    win.top,
+      width:  win.width,
+      height: win.height,
+      focused: true
+    });
+  } catch (err) {
+    console.log('[StandUp] Could not get window info:', err.message);
+    chrome.windows.create({
+      url: chrome.runtime.getURL('notification.html'),
+      type: 'popup',
+      width: 1280,
+      height: 800,
+      focused: true
+    });
   }
+}
+
+function updateBadge(enabled) {
+  chrome.action.setBadgeText({ text: enabled ? '' : 'OFF' });
+  chrome.action.setBadgeBackgroundColor({ color: '#B82820' });
+}
+
+chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+  if (message.action === 'previewNotification') { injectOverlay(); sendResponse({}); }
+  if (message.action === 'rescheduleAlarms')    { scheduleAlarms(); sendResponse({}); }
 });

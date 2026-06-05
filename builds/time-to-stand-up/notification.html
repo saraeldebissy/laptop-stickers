@@ -2,31 +2,182 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Time to Stand Up</title>
   <link rel="stylesheet" href="notification.css" />
 </head>
 <body>
-  <div class="watch-face">
-    <!-- Activity ring -->
-    <div class="ring-container">
-      <svg class="ring-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-        <!-- Track (background ring) -->
-        <circle class="ring-track" cx="60" cy="60" r="50" />
-        <!-- Animated progress arc -->
-        <circle class="ring-progress" cx="60" cy="60" r="50" />
-      </svg>
-      <!-- Standing figure icon in center -->
-      <div class="ring-icon">🧍</div>
+  <div id="overlay">
+
+    <!-- Window 1: Main stand-up alert -->
+    <div class="xp-window win-1">
+      <div class="xp-titlebar">
+        <img class="xp-tb-icon" src="icons/icon16.png" alt="" />
+        <span class="xp-tb-title">Time to Stand Up</span>
+        <div class="xp-btn-group">
+          <button class="xp-btn xp-min" tabindex="-1">&#x2013;</button>
+          <button class="xp-btn xp-max" tabindex="-1">&#x25A1;</button>
+          <button class="xp-btn xp-close">&#x2715;</button>
+        </div>
+      </div>
+      <div class="xp-body">
+        <span class="xp-msg-icon">⚠️</span>
+        <div class="xp-text">
+          <p class="xp-heading">Time to Stand Up!</p>
+          <p class="xp-sub">You have been sitting for too long.<br>Stand up and stretch for a minute.</p>
+        </div>
+      </div>
+      <div class="xp-rule"></div>
+      <div class="xp-footer">
+        <button class="xp-action ok">OK</button>
+        <button class="xp-action">Snooze</button>
+      </div>
     </div>
 
-    <!-- Message -->
-    <p class="label-top">Time to</p>
-    <p class="label-main">Stand Up!</p>
-    <p class="label-sub">You've been sitting too long</p>
+    <!-- Window 2: Take a break -->
+    <div class="xp-window win-2">
+      <div class="xp-titlebar">
+        <img class="xp-tb-icon" src="icons/icon16.png" alt="" />
+        <span class="xp-tb-title">Break Reminder — System Alert</span>
+        <div class="xp-btn-group">
+          <button class="xp-btn xp-min" tabindex="-1">&#x2013;</button>
+          <button class="xp-btn xp-max" tabindex="-1">&#x25A1;</button>
+          <button class="xp-btn xp-close">&#x2715;</button>
+        </div>
+      </div>
+      <div class="xp-body">
+        <span class="xp-msg-icon">☕</span>
+        <div class="xp-text">
+          <p class="xp-heading">Take a Break!</p>
+          <p class="xp-sub">Your body needs rest. Step away<br>from your screen for a moment.</p>
+        </div>
+      </div>
+      <div class="xp-rule"></div>
+      <div class="xp-footer">
+        <button class="xp-action ok">OK</button>
+      </div>
+    </div>
 
-    <!-- Close button -->
-    <button class="close-btn" id="dismissBtn">✕</button>
+    <!-- Window 3 cascade — backmost (win-3e) to frontmost (win-3a), DOM order = z order -->
+    <div class="xp-window win-3e">
+      <div class="xp-titlebar">
+        <img class="xp-tb-icon" src="icons/icon16.png" alt="" />
+        <span class="xp-tb-title">&#x26A0;&#xFE0F;  Stand Up Reminder</span>
+        <div class="xp-btn-group">
+          <button class="xp-btn xp-min" tabindex="-1">&#x2013;</button>
+          <button class="xp-btn xp-max" tabindex="-1">&#x25A1;</button>
+          <button class="xp-btn xp-close">&#x2715;</button>
+        </div>
+      </div>
+      <div class="xp-body">
+        <span class="xp-msg-icon">&#x1F3C3;</span>
+        <div class="xp-text">
+          <p class="xp-heading">Get up and move!</p>
+          <p class="xp-sub">Sitting all day is bad for you.<br>Even a 2-minute walk helps.</p>
+        </div>
+      </div>
+      <div class="xp-rule"></div>
+      <div class="xp-footer">
+        <button class="xp-action ok">OK</button>
+        <button class="xp-action">Cancel</button>
+      </div>
+    </div>
+
+    <div class="xp-window win-3d">
+      <div class="xp-titlebar">
+        <img class="xp-tb-icon" src="icons/icon16.png" alt="" />
+        <span class="xp-tb-title">&#x26A0;&#xFE0F;  Stand Up Reminder</span>
+        <div class="xp-btn-group">
+          <button class="xp-btn xp-min" tabindex="-1">&#x2013;</button>
+          <button class="xp-btn xp-max" tabindex="-1">&#x25A1;</button>
+          <button class="xp-btn xp-close">&#x2715;</button>
+        </div>
+      </div>
+      <div class="xp-body">
+        <span class="xp-msg-icon">&#x1F3C3;</span>
+        <div class="xp-text">
+          <p class="xp-heading">Get up and move!</p>
+          <p class="xp-sub">Sitting all day is bad for you.<br>Even a 2-minute walk helps.</p>
+        </div>
+      </div>
+      <div class="xp-rule"></div>
+      <div class="xp-footer">
+        <button class="xp-action ok">OK</button>
+        <button class="xp-action">Cancel</button>
+      </div>
+    </div>
+
+    <div class="xp-window win-3c">
+      <div class="xp-titlebar">
+        <img class="xp-tb-icon" src="icons/icon16.png" alt="" />
+        <span class="xp-tb-title">&#x26A0;&#xFE0F;  Stand Up Reminder</span>
+        <div class="xp-btn-group">
+          <button class="xp-btn xp-min" tabindex="-1">&#x2013;</button>
+          <button class="xp-btn xp-max" tabindex="-1">&#x25A1;</button>
+          <button class="xp-btn xp-close">&#x2715;</button>
+        </div>
+      </div>
+      <div class="xp-body">
+        <span class="xp-msg-icon">&#x1F3C3;</span>
+        <div class="xp-text">
+          <p class="xp-heading">Get up and move!</p>
+          <p class="xp-sub">Sitting all day is bad for you.<br>Even a 2-minute walk helps.</p>
+        </div>
+      </div>
+      <div class="xp-rule"></div>
+      <div class="xp-footer">
+        <button class="xp-action ok">OK</button>
+        <button class="xp-action">Cancel</button>
+      </div>
+    </div>
+
+    <div class="xp-window win-3b">
+      <div class="xp-titlebar">
+        <img class="xp-tb-icon" src="icons/icon16.png" alt="" />
+        <span class="xp-tb-title">&#x26A0;&#xFE0F;  Stand Up Reminder</span>
+        <div class="xp-btn-group">
+          <button class="xp-btn xp-min" tabindex="-1">&#x2013;</button>
+          <button class="xp-btn xp-max" tabindex="-1">&#x25A1;</button>
+          <button class="xp-btn xp-close">&#x2715;</button>
+        </div>
+      </div>
+      <div class="xp-body">
+        <span class="xp-msg-icon">&#x1F3C3;</span>
+        <div class="xp-text">
+          <p class="xp-heading">Get up and move!</p>
+          <p class="xp-sub">Sitting all day is bad for you.<br>Even a 2-minute walk helps.</p>
+        </div>
+      </div>
+      <div class="xp-rule"></div>
+      <div class="xp-footer">
+        <button class="xp-action ok">OK</button>
+        <button class="xp-action">Cancel</button>
+      </div>
+    </div>
+
+    <div class="xp-window win-3a">
+      <div class="xp-titlebar">
+        <img class="xp-tb-icon" src="icons/icon16.png" alt="" />
+        <span class="xp-tb-title">&#x26A0;&#xFE0F;  Stand Up Reminder</span>
+        <div class="xp-btn-group">
+          <button class="xp-btn xp-min" tabindex="-1">&#x2013;</button>
+          <button class="xp-btn xp-max" tabindex="-1">&#x25A1;</button>
+          <button class="xp-btn xp-close">&#x2715;</button>
+        </div>
+      </div>
+      <div class="xp-body">
+        <span class="xp-msg-icon">&#x1F3C3;</span>
+        <div class="xp-text">
+          <p class="xp-heading">Get up and move!</p>
+          <p class="xp-sub">Sitting all day is bad for you.<br>Even a 2-minute walk helps.</p>
+        </div>
+      </div>
+      <div class="xp-rule"></div>
+      <div class="xp-footer">
+        <button class="xp-action ok">OK</button>
+        <button class="xp-action">Cancel</button>
+      </div>
+    </div>
+
   </div>
 
   <script src="notification.js"></script>
