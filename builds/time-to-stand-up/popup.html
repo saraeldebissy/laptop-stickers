@@ -2,52 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Time to Stand Up</title>
+  <title>Stand Up Reminder</title>
   <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
-  <div class="xp-window">
-
-    <div class="xp-titlebar">
-      <span class="xp-tb-emoji">🖥️</span>
-      <span class="xp-tb-title">Time to Stand Up</span>
-      <div class="xp-btn-group">
-        <button class="xp-btn xp-min" tabindex="-1">&#x2013;</button>
-        <button class="xp-btn xp-max" tabindex="-1">&#x25A1;</button>
-        <button class="xp-btn xp-close" id="closeBtn">&#x2715;</button>
-      </div>
+  <div class="popup-container">
+    <div class="icon-row">🧍</div>
+    <h1 class="title">Stand Up</h1>
+    <p class="subtitle">Daily reminder</p>
+    <div class="card">
+      <p class="card-label">Next reminder</p>
+      <p class="card-time" id="nextTime">Loading...</p>
     </div>
-
-    <div class="xp-body">
-      <label class="xp-toggle">
-        <input type="checkbox" id="enabledToggle" />
-        <span class="xp-toggle-track"><span class="xp-toggle-knob"></span></span>
-        <span class="xp-toggle-label">Reminders enabled</span>
-      </label>
-
-      <div id="timesSection">
-      <p class="section-label">Set reminder times</p>
-
-      <div class="add-row">
-        <select id="hourSel" class="xp-select xp-select-hour"></select>
-        <span class="time-sep">:</span>
-        <select id="minSel" class="xp-select xp-select-min"></select>
-        <select id="ampmSel" class="xp-select xp-select-ampm">
-          <option value="AM">AM</option>
-          <option value="PM">PM</option>
-        </select>
-        <button class="xp-btn-add" id="addBtn">+ Add</button>
-      </div>
-
-      <div class="pills-area" id="pillsArea"></div>
-      </div><!-- /timesSection -->
-    </div><!-- /xp-body -->
-
-    <div class="xp-rule"></div>
-    <div class="xp-footer">
-      <button class="xp-action" id="previewBtn">Preview notification</button>
-    </div>
-
+    <button class="test-btn" id="testBtn">Preview notification</button>
   </div>
   <script src="popup.js"></script>
 </body>
