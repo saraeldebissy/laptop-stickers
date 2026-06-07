@@ -4,9 +4,12 @@
 @theme {
   /* Surfaces — Pwebsite-inspired off-white canvas */
   --color-canvas: #F4F5F8;
-  --color-surface-1: #F7F8FB;
+  --color-surface-1: #FFFFFF;
   --color-surface-2: #EEF0F6;
   --color-surface-3: #E4E7EF;
+
+  /* Shadows */
+  --shadow-float: 0 1px 2px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.09), 0 8px 24px rgba(0, 0, 0, 0.05);
 
   /* Borders */
   --color-border: #E4E7EF;
@@ -56,6 +59,13 @@
   --font-newsreader: var(--font-newsreader);
 }
 
+/* === Force font resolution — Tailwind v4 var() chaining fix === */
+@layer base {
+  html {
+    font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  }
+}
+
 /* === Non-theme custom properties === */
 :root {
   --gradient-accent-text: linear-gradient(90deg, #F3A6C7 0%, #C8B8FF 100%);
@@ -76,12 +86,36 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  padding-right: 0.08em;
+}
+
+.gradient-text-flow {
+  background: linear-gradient(90deg, #F3A6C7, #C8B8FF, #F3A6C7, #C8B8FF);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  padding-right: 0.15em;
+  animation: gradient-flow 4s ease-in-out infinite;
+}
+
+@keyframes gradient-flow {
+  0%   { background-position: 0% center; }
+  50%  { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+*, *::before, *::after {
+  cursor: none !important;
 }
 
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+  transition:
+    background-color 0.7s ease,
+    color 0.4s ease;
 }
 
 body {
@@ -90,4 +124,116 @@ body {
     radial-gradient(circle at 10% 0%, rgba(237, 228, 241, 0.42), transparent 38%),
     var(--color-canvas);
   color: var(--color-ink);
+  transition: background 0.7s ease, color 0.4s ease;
+}
+
+/* ── Focus mode (darker, builder mood) ── */
+html[data-theme="focus"] {
+  --color-canvas: #1B1D28;
+  --color-surface-1: #262940;
+  --color-surface-2: #2A2D3E;
+  --color-surface-3: #333650;
+  --color-border: #383B52;
+  --color-border-hover: #4A4E66;
+  --color-ink: #E2E6F5;
+  --color-ink-muted: #8B91AA;
+  --color-ink-subtle: #5A5F78;
+  --grid-line-color: rgba(255, 255, 255, 0.04);
+}
+
+html[data-theme="focus"] body {
+  background:
+    radial-gradient(circle at 90% 0%, rgba(80, 90, 140, 0.18), transparent 35%),
+    radial-gradient(circle at 10% 0%, rgba(100, 80, 130, 0.15), transparent 38%),
+    var(--color-canvas);
+}
+
+/* ── Animated gradient border ("Let's talk" button) ── */
+.btn-gradient-ring {
+  position: relative;
+  border-radius: 9999px;
+  padding: 1px;
+  overflow: hidden;
+  display: inline-flex;
+}
+.btn-gradient-ring::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  aspect-ratio: 1;
+  background: conic-gradient(from 0deg, #F3A6C7, #C8B8FF, #F472B6, #C8B8FF, #F3A6C7);
+  animation: gradient-ring-spin 3s linear infinite;
+}
+.btn-gradient-ring-inner {
+  position: relative;
+  z-index: 1;
+  border-radius: 9999px;
+  background: var(--color-canvas);
+}
+@keyframes gradient-ring-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes dot-color-cycle {
+  0%, 100% { background-color: #F3A6C7; }
+  50%       { background-color: #C8B8FF; }
+}
+
+/* Animated ring only on hover */
+.btn-gradient-ring-hover {
+  position: relative;
+  border-radius: 9999px;
+  padding: 1px;
+  overflow: hidden;
+  display: inline-flex;
+}
+.btn-gradient-ring-hover::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  aspect-ratio: 1;
+  background: conic-gradient(from 0deg, #F3A6C7, #C8B8FF, #F472B6, #C8B8FF, #F3A6C7);
+  animation: gradient-ring-spin 3s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.btn-gradient-ring-hover:hover::before {
+  opacity: 1;
+}
+.btn-gradient-ring-hover-inner {
+  position: relative;
+  z-index: 1;
+  border-radius: 9999px;
+  background: var(--color-action-bg);
+  color: var(--color-action-text);
+}
+
+/* Focus mode: Mobbin-style white CTA on dark background */
+html[data-theme="focus"] .btn-gradient-ring-hover-inner {
+  background: #FFFFFF;
+  color: #0F1118;
+}
+
+/* ── Steam animation (coffee) ── */
+@keyframes steam-rise {
+  0%   { transform: translateY(0)    scaleX(1);   opacity: 0.6; }
+  60%  { transform: translateY(-14px) scaleX(1.2); opacity: 0.3; }
+  100% { transform: translateY(-26px) scaleX(0.7); opacity: 0; }
+}
+
+/* ── Playground marquee ── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
