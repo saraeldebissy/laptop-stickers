@@ -1,0 +1,7 @@
+- generic [ref=e3]:
+  - generic [ref=e4]: scroll · shift+scroll
+  - generic [ref=e47]:
+    - button "Save screenshot" [ref=e48] [cursor=pointer]:
+      - img [ref=e49]
+    - button "Clear all stickers" [ref=e52] [cursor=pointer]:
+      - img [ref=e53]

@@ -1,0 +1,14 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - img [ref=e6]
+    - img [ref=e21]
+    - img [ref=e32]
+    - generic [ref=e45]:
+      - generic [ref=e47]:
+        - img
+      - paragraph: scroll to resize · shift + scroll to rotate
+  - generic [ref=e96]:
+    - button "Save screenshot" [ref=e97] [cursor=pointer]:
+      - img [ref=e98]
+    - button "Clear all stickers" [ref=e101] [cursor=pointer]:
+      - img [ref=e102]

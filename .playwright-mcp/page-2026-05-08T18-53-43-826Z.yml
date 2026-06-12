@@ -1,0 +1,5 @@
+- generic [ref=e3]:
+  - generic [ref=e4]: scroll to scale · shift+scroll to rotate
+  - generic [ref=e51]:
+    - button "📸" [ref=e52] [cursor=pointer]
+    - button "🧹" [ref=e53] [cursor=pointer]

@@ -1,0 +1,13 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - generic [ref=e6]:
+      - img
+      - generic:
+        - img
+        - generic: drag to place
+    - paragraph: scroll to resize · shift + scroll to rotate
+  - generic [ref=e43]:
+    - button "📷" [ref=e44] [cursor=pointer]:
+      - generic: 📷
+    - button "Clear all stickers" [ref=e45] [cursor=pointer]:
+      - img [ref=e46]

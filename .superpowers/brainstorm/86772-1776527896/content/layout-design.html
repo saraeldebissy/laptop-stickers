@@ -1,0 +1,84 @@
+<h2>Full Layout — Laptop Stickers</h2>
+<p class="subtitle">Dark scene · realistic MacBook · sticker panel on the side · local storage save</p>
+
+<div style="background:#0a0a0a;border-radius:12px;overflow:hidden;padding:32px 24px;display:flex;gap:24px;align-items:center;min-height:340px;position:relative;">
+
+  <!-- Sticker Panel (left) -->
+  <div style="width:130px;flex-shrink:0;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;height:280px;overflow-y:auto;">
+    <div style="color:rgba(255,255,255,0.3);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;font-family:monospace;margin-bottom:4px;">Your Stickers</div>
+    <!-- Sticker grid in panel -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div style="background:rgba(255,255,255,0.06);border:1px dashed rgba(255,255,255,0.15);border-radius:8px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:grab;">🌊</div>
+      <div style="background:rgba(255,255,255,0.06);border:1px dashed rgba(255,255,255,0.15);border-radius:8px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:grab;">✨</div>
+      <div style="background:rgba(255,255,255,0.06);border:1px dashed rgba(255,255,255,0.15);border-radius:8px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:grab;">🐱</div>
+      <div style="background:rgba(255,255,255,0.06);border:1px dashed rgba(255,255,255,0.15);border-radius:8px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:grab;">🎨</div>
+      <div style="background:rgba(255,255,255,0.06);border:1px dashed rgba(255,255,255,0.15);border-radius:8px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:grab;">🍜</div>
+      <div style="background:rgba(255,255,255,0.06);border:1px dashed rgba(255,255,255,0.15);border-radius:8px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:grab;">🌙</div>
+    </div>
+    <!-- Drag hint -->
+    <div style="color:rgba(255,255,255,0.2);font-size:8px;text-align:center;margin-top:auto;line-height:1.4;">drag stickers<br>onto your laptop</div>
+  </div>
+
+  <!-- MacBook canvas (center) -->
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;position:relative;">
+
+    <!-- MacBook lid (drop zone) -->
+    <div style="position:relative;width:280px;">
+      <!-- Lid surface -->
+      <div style="
+        background:linear-gradient(145deg,#c8c8c8 0%,#a0a0a0 40%,#b8b8b8 100%);
+        border-radius:16px 16px 4px 4px;
+        height:175px;
+        border:1.5px solid rgba(255,255,255,0.3);
+        box-shadow:
+          0 0 0 1px rgba(0,0,0,0.4),
+          0 40px 80px rgba(0,0,0,0.9),
+          0 20px 40px rgba(0,0,0,0.6),
+          inset 0 1px 0 rgba(255,255,255,0.5),
+          inset 0 -1px 0 rgba(0,0,0,0.2);
+        position:relative;
+        overflow:hidden;
+        cursor:crosshair;
+      ">
+        <!-- Surface texture -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,0.15) 0%,transparent 60%);pointer-events:none;"></div>
+
+        <!-- Apple logo -->
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;background:rgba(130,130,130,0.5);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px;opacity:0.4;">🍎</div>
+
+        <!-- Sample stickers dropped on lid -->
+        <div style="position:absolute;top:28px;left:38px;font-size:28px;transform:rotate(-8deg);filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4));cursor:grab;">🌊</div>
+        <div style="position:absolute;bottom:24px;right:36px;font-size:22px;transform:rotate(6deg);filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4));cursor:grab;">✨</div>
+        <div style="position:absolute;top:22px;right:44px;font-size:18px;transform:rotate(-3deg);filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4));cursor:grab;">🐱</div>
+
+        <!-- Drop zone hint when empty -->
+        <div style="position:absolute;inset:0;border:2px dashed rgba(255,255,255,0);border-radius:14px;transition:border-color 0.2s;pointer-events:none;"></div>
+      </div>
+
+      <!-- Hinge -->
+      <div style="height:5px;background:linear-gradient(180deg,#909090,#787878);border-radius:0 0 2px 2px;box-shadow:0 4px 16px rgba(0,0,0,0.5);"></div>
+
+      <!-- Glow beneath -->
+      <div style="position:absolute;bottom:-24px;left:10%;right:10%;height:16px;background:rgba(255,255,255,0.06);filter:blur(16px);border-radius:50%;"></div>
+    </div>
+
+    <!-- Drop hint label -->
+    <div style="color:rgba(255,255,255,0.15);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;margin-top:28px;font-family:monospace;">drop stickers anywhere on the lid</div>
+  </div>
+
+  <!-- Actions (right) -->
+  <div style="width:90px;flex-shrink:0;display:flex;flex-direction:column;gap:10px;align-items:center;">
+    <button style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);border-radius:8px;padding:10px 6px;font-size:9px;font-family:monospace;letter-spacing:0.05em;cursor:pointer;">Clear All</button>
+    <button style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);border-radius:8px;padding:10px 6px;font-size:9px;font-family:monospace;letter-spacing:0.05em;cursor:pointer;">Screenshot</button>
+    <div style="color:rgba(255,255,255,0.15);font-size:8px;text-align:center;margin-top:8px;line-height:1.5;">auto-saved<br>to browser</div>
+  </div>
+
+</div>
+
+<div style="margin-top:16px;padding:14px 16px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;">
+  <div style="color:rgba(255,255,255,0.5);font-size:10px;font-family:monospace;line-height:1.8;">
+    <span style="color:rgba(255,255,255,0.2);">Stack:</span> Vite + React · react-draggable · localStorage · your PNG/SVG sticker files<br>
+    <span style="color:rgba(255,255,255,0.2);">Interactions:</span> Drag sticker from panel → drop onto lid → reposition freely → double-click to remove<br>
+    <span style="color:rgba(255,255,255,0.2);">Save:</span> Layout auto-saves to localStorage on every drop · persists across sessions
+  </div>
+</div>

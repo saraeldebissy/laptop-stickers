@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Design Mockup</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: #1a1a2e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px 48px;
+    gap: 40px;
+    min-height: 100vh;
+  }
+
+  .label {
+    color: rgba(200,210,255,0.5);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: monospace;
+    text-align: center;
+  }
+
+  /* ── THE SCENE ── */
+  .scene {
+    width: 780px;
+    height: 560px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 32px 80px rgba(0,0,0,0.4);
+  }
+
+  /* Gradient background */
+  .scene-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(155deg,
+      #f0f2fa 0%,
+      #e8ecf8 25%,
+      #ebe5f8 55%,
+      #e2eaf8 80%,
+      #edf0fb 100%
+    );
+  }
+
+  /* Color blobs */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    pointer-events: none;
+  }
+  .blob-1 {
+    width: 380px; height: 380px;
+    top: -100px; left: -80px;
+    background: rgba(160, 180, 255, 0.28);
+  }
+  .blob-2 {
+    width: 320px; height: 320px;
+    bottom: -60px; right: -60px;
+    background: rgba(210, 150, 255, 0.2);
+  }
+  .blob-3 {
+    width: 280px; height: 280px;
+    top: 80px; right: 60px;
+    background: rgba(140, 220, 255, 0.16);
+  }
+  .blob-4 {
+    width: 200px; height: 200px;
+    bottom: 120px; left: 80px;
+    background: rgba(255, 180, 200, 0.13);
+  }
+
+  /* ── MACBOOK ── */
+  .macbook-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -54%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 3;
+  }
+
+  .macbook-lid {
+    width: 400px;
+    height: 250px;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    /* Premium aluminum gradient */
+    background: linear-gradient(150deg,
+      #e8e8ec 0%,
+      #d8d8de 20%,
+      #c8c8cf 45%,
+      #d2d2d8 70%,
+      #dedee4 100%
+    );
+    border: 1px solid rgba(255,255,255,0.7);
+    box-shadow:
+      0 0 0 0.5px rgba(0,0,0,0.12),
+      0 2px 4px rgba(0,0,0,0.06),
+      0 8px 24px rgba(100,110,160,0.14),
+      0 24px 64px rgba(80,90,140,0.18),
+      0 48px 100px rgba(60,70,120,0.12),
+      inset 0 1.5px 0 rgba(255,255,255,0.85),
+      inset 0 -0.5px 0 rgba(0,0,0,0.06);
+  }
+
+  /* Specular highlight sweep — top-left corner */
+  .lid-specular {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at 22% 12%,
+      rgba(255,255,255,0.45) 0%,
+      rgba(255,255,255,0.12) 30%,
+      transparent 60%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Edge darkening — makes it look 3D */
+  .lid-edge {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom, transparent 85%, rgba(0,0,0,0.06) 100%),
+      linear-gradient(to right, rgba(0,0,0,0.04) 0%, transparent 8%, transparent 92%, rgba(0,0,0,0.04) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Apple logo — etched look */
+  .apple-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 42px;
+    height: 52px;
+    z-index: 2;
+    opacity: 1;
+  }
+  .apple-logo path {
+    fill: rgba(160, 160, 168, 0.5);
+    filter: drop-shadow(0 0.5px 0 rgba(255,255,255,0.6)) drop-shadow(0 -0.5px 0 rgba(0,0,0,0.1));
+  }
+
+  /* Sample stickers on lid */
+  .sticker {
+    position: absolute;
+    width: 54px;
+    height: 54px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    filter: drop-shadow(0 3px 10px rgba(0,0,0,0.25));
+  }
+
+  .macbook-hinge {
+    width: 400px;
+    height: 10px;
+    background: linear-gradient(180deg,
+      rgba(150,152,162,0.9) 0%,
+      rgba(120,122,132,0.85) 50%,
+      rgba(100,102,112,0.8) 100%
+    );
+    border-radius: 0 0 3px 3px;
+    box-shadow:
+      0 2px 8px rgba(60,70,110,0.2),
+      inset 0 1px 0 rgba(255,255,255,0.15);
+  }
+
+  /* ── PILL SHELF ── */
+  .pill-shelf {
+    position: absolute;
+    bottom: 52px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .pill-inner {
+    background: rgba(255,255,255,0.62);
+    border: 1px solid rgba(255,255,255,0.92);
+    border-radius: 22px;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow:
+      0 2px 8px rgba(100,110,160,0.08),
+      0 6px 24px rgba(100,110,160,0.10),
+      0 12px 40px rgba(80,90,140,0.08),
+      inset 0 1px 0 rgba(255,255,255,0.98),
+      inset 0 -0.5px 0 rgba(160,165,200,0.12);
+    /* Left/right scroll fade handled by mask */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+
+  .sticker-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+    background: rgba(240,242,252,0.75);
+    border: 1px solid rgba(200,205,230,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: grab;
+    box-shadow: 0 1px 3px rgba(100,110,160,0.06), inset 0 1px 0 rgba(255,255,255,0.8);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    overflow: hidden;
+  }
+
+  .sticker-thumb:hover {
+    transform: scale(1.1) translateY(-2px);
+    background: rgba(255,255,255,0.92);
+    box-shadow: 0 4px 14px rgba(100,110,160,0.14), inset 0 1px 0 rgba(255,255,255,1);
+  }
+
+  .sticker-dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+  }
+  .sticker-sq {
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+  }
+
+  .pill-divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(160,165,210,0.2);
+    flex-shrink: 0;
+    margin: 0 2px;
+  }
+
+  /* ── ACTIONS — icon chips ── */
+  .action-chips {
+    position: absolute;
+    top: 28px;
+    right: 28px;
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+  }
+
+  .chip {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(255,255,255,0.88);
+    backdrop-filter: blur(16px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(100,110,160,0.10), inset 0 1px 0 rgba(255,255,255,0.9);
+    transition: transform 0.15s, background 0.15s;
+  }
+
+  .chip svg {
+    width: 14px;
+    height: 14px;
+    stroke: rgba(80,90,140,0.65);
+    fill: none;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ── AUTO SAVE HINT ── */
+  .autosave {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    color: rgba(100,110,160,0.38);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: monospace;
+    white-space: nowrap;
+    z-index: 4;
+  }
+
+  /* ── CALLOUT ANNOTATIONS ── */
+  .annotations {
+    width: 780px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .annotation {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ann-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(200,210,255,0.8);
+    font-family: system-ui;
+  }
+  .ann-body {
+    font-size: 11px;
+    color: rgba(160,170,220,0.55);
+    font-family: system-ui;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="label">Full scene — light glass · craft direction</div>
+
+<div class="scene">
+  <div class="scene-bg"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="blob blob-4"></div>
+
+  <!-- Action chips -->
+  <div class="action-chips">
+    <div class="chip" title="Screenshot">
+      <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3"/><path d="M9 6l1.5-2h3L15 6"/></svg>
+    </div>
+    <div class="chip" title="Clear all">
+      <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+    </div>
+  </div>
+
+  <!-- MacBook -->
+  <div class="macbook-wrap">
+    <div class="macbook-lid">
+      <div class="lid-specular"></div>
+      <div class="lid-edge"></div>
+      <svg class="apple-logo" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
+        <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/>
+      </svg>
+
+      <!-- Sample stickers -->
+      <div class="sticker" style="top:28px;right:55px;transform:rotate(7deg);">
+        <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#ff6b6b,#ff4757);box-shadow:0 4px 14px rgba(255,75,75,0.35);"></div>
+      </div>
+      <div class="sticker" style="top:72px;right:30px;transform:rotate(-5deg);">
+        <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#74b9ff,#0984e3);box-shadow:0 4px 14px rgba(9,132,227,0.3);"></div>
+      </div>
+      <div class="sticker" style="bottom:30px;left:44px;transform:rotate(3deg);">
+        <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#55efc4,#00b894);box-shadow:0 4px 14px rgba(0,184,148,0.3);"></div>
+      </div>
+      <div class="sticker" style="top:40px;left:52px;transform:rotate(-8deg);">
+        <div style="width:42px;height:42px;border-radius:8px;background:linear-gradient(135deg,#fd79a8,#e84393);box-shadow:0 4px 14px rgba(232,67,147,0.3);"></div>
+      </div>
+    </div>
+
+    <div class="macbook-hinge"></div>
+  </div>
+
+  <!-- Pill shelf -->
+  <div class="pill-shelf">
+    <div class="pill-inner">
+      <div class="sticker-thumb"><div class="sticker-dot" style="background:linear-gradient(135deg,#ff6b6b,#ff4757);"></div></div>
+      <div class="sticker-thumb"><div class="sticker-sq" style="background:linear-gradient(135deg,#74b9ff,#0984e3);transform:rotate(6deg);"></div></div>
+      <div class="sticker-thumb"><div class="sticker-dot" style="background:linear-gradient(135deg,#55efc4,#00b894);"></div></div>
+      <div class="sticker-thumb"><div class="sticker-sq" style="background:linear-gradient(135deg,#fd79a8,#e84393);transform:rotate(-4deg);"></div></div>
+      <div class="sticker-thumb"><div class="sticker-dot" style="background:linear-gradient(135deg,#ffeaa7,#fdcb6e);"></div></div>
+      <div class="pill-divider"></div>
+      <div class="sticker-thumb"><div class="sticker-dot" style="background:linear-gradient(135deg,#a29bfe,#6c5ce7);"></div></div>
+      <div class="sticker-thumb"><div class="sticker-sq" style="background:linear-gradient(135deg,#81ecec,#00cec9);transform:rotate(8deg);"></div></div>
+      <div class="sticker-thumb"><div class="sticker-dot" style="background:linear-gradient(135deg,#fab1a0,#e17055);"></div></div>
+      <div class="sticker-thumb"><div class="sticker-sq" style="background:linear-gradient(135deg,#dfe6e9,#b2bec3);transform:rotate(-6deg);"></div></div>
+    </div>
+  </div>
+
+  <!-- Auto save -->
+  <div class="autosave">auto-saved to browser</div>
+</div>
+
+<!-- Annotations -->
+<div class="annotations">
+  <div class="annotation">
+    <div class="ann-title">Background</div>
+    <div class="ann-body">Soft 5-stop gradient (off-white → lavender → periwinkle). Four diffused blobs — no hard edges. Subtle slow animation in code (40s cycle). No noise, no grid.</div>
+  </div>
+  <div class="annotation">
+    <div class="ann-title">MacBook lid</div>
+    <div class="ann-body">Refined aluminum gradient. Specular highlight sweep top-left. Edge-darkening overlay for 3D depth. Apple logo has etched appearance (shadow + highlight). Deeper, layered box-shadows.</div>
+  </div>
+  <div class="annotation">
+    <div class="ann-title">Floating pill shelf</div>
+    <div class="ann-body">High-blur frosted glass (blur 24px). Strong top inset highlight. Fade mask on both edges. Thumb hover lifts + scales. Divider between sticker groups. Replaces current bottom strip.</div>
+  </div>
+  <div class="annotation">
+    <div class="ann-title">Action chips</div>
+    <div class="ann-body">Circular frosted glass buttons top-right. Camera icon + trash icon. Replaces the monospace text buttons on the side. Cleaner, takes up no layout space.</div>
+  </div>
+</div>
+
+</body>
+</html>

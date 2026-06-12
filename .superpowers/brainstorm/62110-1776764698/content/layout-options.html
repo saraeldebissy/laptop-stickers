@@ -1,0 +1,197 @@
+<h2>How should the sticker panel live?</h2>
+<p class="subtitle">The current bottom strip works, but these layouts feel more considered</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="floating-shelf" onclick="toggleSelect(this)">
+    <div class="card-image" style="
+      background: linear-gradient(145deg, #e8ecf4 0%, #dde4f0 60%, #e4dff5 100%);
+      height: 190px;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 18px;
+      gap: 10px;
+    ">
+      <div style="position:absolute;top:-20px;left:-20px;width:130px;height:130px;border-radius:50%;background:rgba(140,160,255,0.15);filter:blur(35px);"></div>
+      <div style="position:absolute;bottom:40px;right:-10px;width:100px;height:100px;border-radius:50%;background:rgba(200,140,255,0.12);filter:blur(30px);"></div>
+
+      <!-- MacBook -->
+      <div style="width:140px;height:88px;background:linear-gradient(150deg,rgba(255,255,255,0.8),rgba(225,228,240,0.75));border-radius:8px;border:1px solid rgba(255,255,255,0.95);box-shadow:0 6px 24px rgba(100,110,160,0.18),inset 0 1px 0 #fff;position:relative;z-index:2;flex-shrink:0;">
+        <div style="position:absolute;top:10px;right:12px;width:14px;height:14px;border-radius:50%;background:rgba(255,100,100,0.8);"></div>
+        <div style="position:absolute;bottom:10px;left:10px;width:12px;height:12px;border-radius:3px;background:rgba(60,160,255,0.8);transform:rotate(-8deg);"></div>
+      </div>
+      <!-- Hinge -->
+      <div style="width:140px;height:4px;background:linear-gradient(180deg,rgba(180,185,205,0.5),rgba(150,155,180,0.4));border-radius:0 0 2px 2px;margin-top:-8px;flex-shrink:0;position:relative;z-index:2;"></div>
+
+      <!-- Floating pill shelf below laptop -->
+      <div style="
+        background: rgba(255,255,255,0.55);
+        border: 1px solid rgba(255,255,255,0.85);
+        border-radius: 20px;
+        backdrop-filter: blur(16px);
+        padding: 8px 12px;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        box-shadow: 0 4px 20px rgba(100,110,160,0.14), 0 1px 4px rgba(100,110,160,0.08), inset 0 1px 0 #fff;
+        position: relative;
+        z-index: 2;
+        flex-shrink: 0;
+      ">
+        <div style="width:26px;height:26px;border-radius:7px;background:rgba(240,242,250,0.8);border:1px solid rgba(180,185,220,0.25);display:flex;align-items:center;justify-content:center;"><div style="width:14px;height:14px;border-radius:50%;background:rgba(255,120,80,0.75);"></div></div>
+        <div style="width:26px;height:26px;border-radius:7px;background:rgba(240,242,250,0.8);border:1px solid rgba(180,185,220,0.25);display:flex;align-items:center;justify-content:center;"><div style="width:14px;height:14px;border-radius:3px;background:rgba(80,160,255,0.75);transform:rotate(8deg);"></div></div>
+        <div style="width:26px;height:26px;border-radius:7px;background:rgba(240,242,250,0.8);border:1px solid rgba(180,185,220,0.25);display:flex;align-items:center;justify-content:center;"><div style="width:14px;height:14px;border-radius:50%;background:rgba(120,200,100,0.75);"></div></div>
+        <div style="width:26px;height:26px;border-radius:7px;background:rgba(240,242,250,0.8);border:1px solid rgba(180,185,220,0.25);display:flex;align-items:center;justify-content:center;"><div style="width:14px;height:14px;border-radius:3px;background:rgba(200,100,255,0.75);transform:rotate(-5deg);"></div></div>
+        <div style="width:1px;height:20px;background:rgba(160,165,200,0.25);"></div>
+        <div style="width:26px;height:26px;border-radius:7px;background:rgba(240,242,250,0.8);border:1px solid rgba(180,185,220,0.25);display:flex;align-items:center;justify-content:center;"><div style="width:14px;height:14px;border-radius:50%;background:rgba(255,200,60,0.75);"></div></div>
+        <div style="width:26px;height:26px;border-radius:7px;background:rgba(240,242,250,0.8);border:1px solid rgba(180,185,220,0.25);display:flex;align-items:center;justify-content:center;"><div style="width:12px;height:12px;border-radius:50%;background:rgba(60,200,255,0.75);"></div></div>
+      </div>
+      <div style="font-size:9px;color:rgba(80,90,130,0.45);font-family:system-ui;letter-spacing:0.05em;text-transform:uppercase;position:relative;z-index:2;">scrollable pill · centered · floats below laptop</div>
+    </div>
+    <div class="card-body">
+      <h3>Floating Pill Shelf</h3>
+      <p>A horizontally scrollable frosted pill sits directly below the laptop — like a macOS Dock. Compact, intentional, everything in one zone.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="sidebar" onclick="toggleSelect(this)">
+    <div class="card-image" style="
+      background: linear-gradient(145deg, #e8ecf4 0%, #dde4f0 60%, #e4dff5 100%);
+      height: 190px;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 14px;
+    ">
+      <div style="position:absolute;top:-20px;right:-20px;width:130px;height:130px;border-radius:50%;background:rgba(140,160,255,0.15);filter:blur(35px);"></div>
+
+      <!-- Left sidebar panel -->
+      <div style="
+        background: rgba(255,255,255,0.5);
+        border: 1px solid rgba(255,255,255,0.85);
+        border-radius: 14px;
+        backdrop-filter: blur(14px);
+        padding: 10px 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        box-shadow: 0 4px 20px rgba(100,110,160,0.12), inset 0 1px 0 #fff;
+        flex-shrink: 0;
+        width: 46px;
+        z-index: 2;
+        align-items: center;
+      ">
+        <div style="font-size:7px;color:rgba(80,90,140,0.4);font-family:monospace;letter-spacing:0.08em;text-transform:uppercase;writing-mode:vertical-rl;transform:rotate(180deg);margin-bottom:4px;">Stickers</div>
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(240,242,252,0.8);border:1px solid rgba(180,185,220,0.2);display:flex;align-items:center;justify-content:center;"><div style="width:15px;height:15px;border-radius:50%;background:rgba(255,120,80,0.8);"></div></div>
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(240,242,252,0.8);border:1px solid rgba(180,185,220,0.2);display:flex;align-items:center;justify-content:center;"><div style="width:15px;height:15px;border-radius:3px;background:rgba(80,160,255,0.8);transform:rotate(8deg);"></div></div>
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(240,242,252,0.8);border:1px solid rgba(180,185,220,0.2);display:flex;align-items:center;justify-content:center;"><div style="width:15px;height:15px;border-radius:50%;background:rgba(120,200,100,0.8);"></div></div>
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(240,242,252,0.8);border:1px solid rgba(180,185,220,0.2);display:flex;align-items:center;justify-content:center;"><div style="width:15px;height:15px;border-radius:3px;background:rgba(200,100,255,0.8);transform:rotate(-5deg);"></div></div>
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(240,242,252,0.8);border:1px solid rgba(180,185,220,0.2);display:flex;align-items:center;justify-content:center;"><div style="width:15px;height:15px;border-radius:50%;background:rgba(255,200,60,0.8);"></div></div>
+      </div>
+
+      <!-- MacBook center -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;z-index:2;">
+        <div style="width:130px;height:82px;background:linear-gradient(150deg,rgba(255,255,255,0.8),rgba(225,228,240,0.75));border-radius:8px;border:1px solid rgba(255,255,255,0.95);box-shadow:0 6px 24px rgba(100,110,160,0.18),inset 0 1px 0 #fff;position:relative;">
+          <div style="position:absolute;top:10px;right:10px;width:14px;height:14px;border-radius:50%;background:rgba(255,100,100,0.8);"></div>
+          <div style="position:absolute;bottom:10px;left:8px;width:12px;height:12px;border-radius:3px;background:rgba(60,160,255,0.8);transform:rotate(-8deg);"></div>
+        </div>
+        <div style="width:130px;height:4px;background:linear-gradient(180deg,rgba(180,185,205,0.5),rgba(150,155,180,0.4));border-radius:0 0 2px 2px;"></div>
+      </div>
+
+      <!-- Right sidebar — actions -->
+      <div style="
+        background: rgba(255,255,255,0.5);
+        border: 1px solid rgba(255,255,255,0.85);
+        border-radius: 14px;
+        backdrop-filter: blur(14px);
+        padding: 10px 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        box-shadow: 0 4px 20px rgba(100,110,160,0.12), inset 0 1px 0 #fff;
+        flex-shrink: 0;
+        width: 46px;
+        z-index: 2;
+        align-items: center;
+      ">
+        <div style="width:28px;height:22px;border-radius:6px;background:rgba(240,242,252,0.8);border:1px solid rgba(180,185,220,0.2);display:flex;align-items:center;justify-content:center;"><div style="font-size:7px;color:rgba(80,90,140,0.6);font-family:system-ui;">⬇</div></div>
+        <div style="width:28px;height:22px;border-radius:6px;background:rgba(240,242,252,0.8);border:1px solid rgba(180,185,220,0.2);display:flex;align-items:center;justify-content:center;"><div style="font-size:7px;color:rgba(80,90,140,0.6);font-family:system-ui;">✕</div></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Two Sidebars</h3>
+      <p>Sticker tray on the left, actions on the right — MacBook floats in the center. More like a desktop app. Feels structured and symmetric.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="bottom-drawer" onclick="toggleSelect(this)">
+    <div class="card-image" style="
+      background: linear-gradient(145deg, #e8ecf4 0%, #dde4f0 60%, #e4dff5 100%);
+      height: 190px;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 16px;
+    ">
+      <div style="position:absolute;bottom:-10px;left:-20px;width:150px;height:150px;border-radius:50%;background:rgba(200,140,255,0.12);filter:blur(40px);"></div>
+      <div style="position:absolute;top:10px;right:-10px;width:100px;height:100px;border-radius:50%;background:rgba(140,180,255,0.12);filter:blur(30px);"></div>
+
+      <!-- MacBook -->
+      <div style="width:140px;height:88px;background:linear-gradient(150deg,rgba(255,255,255,0.8),rgba(225,228,240,0.75));border-radius:8px;border:1px solid rgba(255,255,255,0.95);box-shadow:0 6px 24px rgba(100,110,160,0.18),inset 0 1px 0 #fff;position:relative;z-index:2;flex-shrink:0;">
+        <div style="position:absolute;top:10px;right:12px;width:14px;height:14px;border-radius:50%;background:rgba(255,100,100,0.8);"></div>
+        <div style="position:absolute;bottom:10px;left:10px;width:12px;height:12px;border-radius:3px;background:rgba(60,160,255,0.8);transform:rotate(-8deg);"></div>
+      </div>
+      <div style="width:140px;height:4px;background:linear-gradient(180deg,rgba(180,185,205,0.5),rgba(150,155,180,0.4));border-radius:0 0 2px 2px;margin-top:0;flex-shrink:0;position:relative;z-index:2;"></div>
+
+      <!-- Spacer -->
+      <div style="flex:1;"></div>
+
+      <!-- Full-width bottom drawer — attached to bottom edge -->
+      <div style="
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255,255,255,0.6);
+        border-top: 1px solid rgba(255,255,255,0.9);
+        backdrop-filter: blur(20px);
+        padding: 8px 14px 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        box-shadow: 0 -4px 24px rgba(100,110,160,0.1), inset 0 1px 0 rgba(255,255,255,0.95);
+        z-index: 2;
+      ">
+        <!-- Drag handle -->
+        <div style="width:32px;height:3px;border-radius:2px;background:rgba(160,165,200,0.4);margin:0 auto;"></div>
+        <!-- Sticker row -->
+        <div style="display:flex;gap:5px;align-items:center;overflow:hidden;">
+          <div style="width:28px;height:28px;border-radius:7px;background:rgba(240,242,252,0.9);border:1px solid rgba(180,185,220,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><div style="width:14px;height:14px;border-radius:50%;background:rgba(255,120,80,0.8);"></div></div>
+          <div style="width:28px;height:28px;border-radius:7px;background:rgba(240,242,252,0.9);border:1px solid rgba(180,185,220,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><div style="width:14px;height:14px;border-radius:3px;background:rgba(80,160,255,0.8);transform:rotate(8deg);"></div></div>
+          <div style="width:28px;height:28px;border-radius:7px;background:rgba(240,242,252,0.9);border:1px solid rgba(180,185,220,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><div style="width:14px;height:14px;border-radius:50%;background:rgba(120,200,100,0.8);"></div></div>
+          <div style="width:28px;height:28px;border-radius:7px;background:rgba(240,242,252,0.9);border:1px solid rgba(180,185,220,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><div style="width:14px;height:14px;border-radius:3px;background:rgba(200,100,255,0.8);transform:rotate(-5deg);"></div></div>
+          <div style="width:28px;height:28px;border-radius:7px;background:rgba(240,242,252,0.9);border:1px solid rgba(180,185,220,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><div style="width:14px;height:14px;border-radius:50%;background:rgba(255,200,60,0.8);"></div></div>
+          <div style="width:28px;height:28px;border-radius:7px;background:rgba(240,242,252,0.9);border:1px solid rgba(180,185,220,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><div style="width:14px;height:14px;border-radius:50%;background:rgba(60,200,255,0.8);"></div></div>
+          <div style="font-size:9px;color:rgba(120,130,180,0.4);margin-left:2px;">→</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Bottom Drawer</h3>
+      <p>Full-width frosted panel anchored to the bottom edge, with a drag handle and horizontally scrollable sticker row. Like a macOS sheet. Actions live inside it.</p>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,73 @@
+<h2>What's the vibe of the page?</h2>
+<p class="subtitle">The MacBook is the star — what's the scene around it?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="desk" onclick="toggleSelect(this)">
+    <div class="card-image" style="min-height:180px;border-radius:8px 8px 0 0;overflow:hidden;padding:0;position:relative;background:linear-gradient(180deg,#e8dcc8 0%,#c8b89a 100%);">
+      <!-- Desk surface -->
+      <div style="position:absolute;bottom:0;left:0;right:0;height:55%;background:linear-gradient(180deg,#b8a882,#9a8c6a);"></div>
+      <!-- Desk edge line -->
+      <div style="position:absolute;bottom:55%;left:0;right:0;height:3px;background:#7a6c50;"></div>
+      <!-- Wall -->
+      <div style="position:absolute;top:0;left:0;right:0;height:48%;background:linear-gradient(180deg,#f0e8d8,#e0d4be);"></div>
+
+      <!-- MacBook on desk -->
+      <div style="position:absolute;bottom:22%;left:50%;transform:translateX(-50%);width:170px;">
+        <div style="background:linear-gradient(145deg,#d0d0d0,#a8a8a8);border-radius:12px 12px 2px 2px;height:105px;border:1px solid #999;box-shadow:0 8px 24px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;">
+          <div style="font-size:11px;opacity:0.4;color:#555;">🍎</div>
+          <div style="position:absolute;top:12px;left:22px;background:white;border-radius:4px;padding:2px 5px;font-size:7px;font-weight:bold;box-shadow:0 1px 4px rgba(0,0,0,0.2);">JS</div>
+          <div style="position:absolute;bottom:12px;right:18px;font-size:12px;">🌊</div>
+        </div>
+        <div style="background:linear-gradient(180deg,#b8b8b8,#989898);height:4px;border-radius:0 0 3px 3px;box-shadow:0 4px 12px rgba(0,0,0,0.2);"></div>
+      </div>
+
+      <!-- Desk props -->
+      <div style="position:absolute;bottom:24%;right:15%;width:22px;height:35px;background:linear-gradient(180deg,#8db4d0,#6a9ab8);border-radius:3px 3px 0 0;"></div>
+      <div style="position:absolute;bottom:24%;left:18%;width:30px;height:12px;background:linear-gradient(180deg,#e8c070,#c8a050);border-radius:2px;"></div>
+    </div>
+    <div class="card-body">
+      <h3>A — Desk Scene</h3>
+      <p>MacBook sitting on a wooden desk with a wall behind. Cozy, realistic. Props like a coffee cup or plant add personality.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="minimal" onclick="toggleSelect(this)">
+    <div class="card-image" style="min-height:180px;border-radius:8px 8px 0 0;overflow:hidden;padding:0;background:#0a0a0a;display:flex;align-items:center;justify-content:center;">
+      <!-- Floating MacBook minimal -->
+      <div style="position:relative;width:170px;filter:drop-shadow(0 30px 60px rgba(0,0,0,0.8));">
+        <div style="background:linear-gradient(145deg,#d0d0d0,#a8a8a8);border-radius:12px 12px 2px 2px;height:108px;border:1px solid #999;display:flex;align-items:center;justify-content:center;">
+          <div style="font-size:11px;opacity:0.3;color:#555;">🍎</div>
+          <div style="position:absolute;top:14px;left:24px;background:white;border-radius:4px;padding:2px 5px;font-size:7px;font-weight:bold;">React</div>
+          <div style="position:absolute;bottom:14px;right:20px;font-size:12px;">✨</div>
+        </div>
+        <div style="background:linear-gradient(180deg,#b0b0b0,#909090);height:5px;border-radius:0 0 3px 3px;"></div>
+        <!-- Glow underneath -->
+        <div style="position:absolute;bottom:-15px;left:20%;right:20%;height:8px;background:rgba(255,255,255,0.08);filter:blur(10px);border-radius:50%;"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Floating Dark</h3>
+      <p>MacBook floating on a dark background with a subtle glow. Dramatic, focused. All attention on the laptop and stickers.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="gradient" onclick="toggleSelect(this)">
+    <div class="card-image" style="min-height:180px;border-radius:8px 8px 0 0;overflow:hidden;padding:0;background:linear-gradient(135deg,#667eea 0%,#f093fb 50%,#f5576c 100%);display:flex;align-items:center;justify-content:center;">
+      <!-- MacBook on gradient -->
+      <div style="position:relative;width:170px;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.4));">
+        <div style="background:linear-gradient(145deg,#e0e0e0,#c0c0c0);border-radius:12px 12px 2px 2px;height:108px;border:1px solid #bbb;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(2px);">
+          <div style="font-size:11px;opacity:0.4;color:#555;">🍎</div>
+          <div style="position:absolute;top:14px;left:24px;background:rgba(255,255,255,0.9);border-radius:4px;padding:2px 5px;font-size:7px;font-weight:bold;">JS</div>
+          <div style="position:absolute;bottom:14px;right:20px;font-size:12px;">🎨</div>
+        </div>
+        <div style="background:linear-gradient(180deg,#b8b8b8,#989898);height:5px;border-radius:0 0 3px 3px;"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Vibrant Gradient</h3>
+      <p>Bold colorful background — purple to pink to coral. Fun, Gen-Z energy. Stickers pop against the vivid backdrop.</p>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,36 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: #3A0878;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  color: rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse 100% 60% at 50% 0%,
+      rgba(180, 130, 255, 0.18) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 120% 100% at 50% 50%,
+      #5C28A0 0%,
+      #420E82 55%,
+      #2C0062 100%
+    );
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
